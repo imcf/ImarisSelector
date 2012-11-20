@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.Diagnostics;
+using System.Windows.Forms;
 using ImarisSelectorLib;
 
 namespace ImarisSelector
@@ -16,10 +11,13 @@ namespace ImarisSelector
         protected String m_ImarisSelectorVersion = "0.0.0";
         protected RegistryManager m_Manager;
 
-        // ImarisVersion and ImarisFullPath are read from the ImarisSelector registry keys
+        // ImarisVersion and ImarisFullPath are read from the ImarisSelector settings file
         protected String m_ImarisVersion;
         protected String m_ImarisPath;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public MainWindow()
         {
             // Get the application settings
@@ -38,7 +36,7 @@ namespace ImarisSelector
                 Environment.Exit(1);
             }
 
-            // Store the entries
+            // Store the loaded entries
             this.m_ImarisVersion = ImarisVersionFromSettings;
             this.m_ImarisPath = ImarisPathFromSettings;
 
@@ -50,13 +48,13 @@ namespace ImarisSelector
         }
 
         /// <summary>
-        /// Initialize the MainWindow element
+        /// Initialize the MainWindow element.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            // If not license information is found in the registry, it most likely
+            // If no license information is found in the registry, it most likely
             // means that Imaris has never been started by this user. So, we just
             // go ahead and launch it.
             if (!m_Manager.LicenseInformationFound())
@@ -68,7 +66,7 @@ namespace ImarisSelector
             // Initially enable all licenses...
             this.m_Manager.EnableAllModules();
 
-            // ... and disable the selected ones
+            // ... and disable the selected ones (in the registry)
             this.m_Manager.DisableModules(m_Manager.GetSelectedModuleNames());
 
             // Fill the checkedListBox
@@ -94,7 +92,7 @@ namespace ImarisSelector
         }
 
         /// <summary>
-        /// Update registry in response to licenses check status change
+        /// Update registry in response to licenses check status change.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -117,7 +115,7 @@ namespace ImarisSelector
         }
 
         /// <summary>
-        /// Callback for the change of check state of the radioSelSimple radio button
+        /// Callback for the change of check state of the radioSelSimple radio button.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -128,7 +126,7 @@ namespace ImarisSelector
         }
 
         /// <summary>
-        /// Callback for the change of check state of the radioSelAdvanced radio button
+        /// Callback for the change of check state of the radioSelAdvanced radio button.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -177,17 +175,7 @@ namespace ImarisSelector
         }
 
         /// <summary>
-        /// Callback for the click event of the labelLicenseDescription label.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void labelLicenseDescription_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        /// <summary>
-        /// Fill the checkedListBox with module names and associated and license state.
+        /// Fill the checkedListBox with module names and associated license state.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

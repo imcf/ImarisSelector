@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.Win32;
 using System.IO;
 
 namespace ImarisSelectorLib
@@ -8,7 +7,7 @@ namespace ImarisSelectorLib
     public static class ApplicationSettings
     {
         /// <summary>
-        /// Get the ImarisSelector settings from the registry
+        /// Get the ImarisSelector settings from the settings file.
         /// </summary>
         public static bool read(out String ImarisVersion, out String ImarisPath)
         {
@@ -71,8 +70,10 @@ namespace ImarisSelectorLib
         }
 
         /// <summary>
-        /// Set the application settings to the registry
+        /// Set the application settings to the settings file.
         /// </summary>
+        /// <param name="ImarisVersion">Imaris version, in the form "Imaris x64 7.6"</param>
+        /// <param name="ImarisPath">Full path of the Imaris executable.</param>
         /// <returns></returns>
         public static bool write(String ImarisVersion, String ImarisPath)
         {
@@ -115,7 +116,7 @@ namespace ImarisSelectorLib
 
         
         /// <summary>
-        /// Returns the setting file name with full path
+        /// Returns the setting file name with full path.
         /// </summary>
         /// <returns>Setting file name with full path.</returns>
         private static String settingsFullFileName()
@@ -125,9 +126,9 @@ namespace ImarisSelectorLib
         }
 
         /// <summary>
-        /// Create the ImarisSelector directory in commonAppData if it does not exist
+        /// Create the specified directory if it does not exist.
         /// </summary>
-        /// <param name="dir">Full directory name to be created</param>
+        /// <param name="dir">Full directory name to be created.</param>
         private static void CreateSettingsDirIfNeeded(String dir)
         {
             if (!Directory.Exists(dir))

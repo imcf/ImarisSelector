@@ -92,7 +92,6 @@
             this.labelLicenseDescription.Name = "labelLicenseDescription";
             this.labelLicenseDescription.Size = new System.Drawing.Size(0, 13);
             this.labelLicenseDescription.TabIndex = 4;
-            this.labelLicenseDescription.Click += new System.EventHandler(this.labelLicenseDescription_Click);
             // 
             // labelLicenseName
             // 

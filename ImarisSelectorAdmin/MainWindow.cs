@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using ImarisSelectorLib;
 
 namespace ImarisSelectorAdmin
@@ -11,11 +11,14 @@ namespace ImarisSelectorAdmin
         private String m_ImarisVersion;
         private String m_ImarisSelectorAdminVersion = "0.0.0";
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
 
-            // Get the application settings from the registry
+            // Get the application settings from the settings file.
             String ImarisVersionFromSettingsFile;
             String ImarisPathFromSettingsFile;
             if (ApplicationSettings.read(out ImarisVersionFromSettingsFile,
@@ -35,9 +38,12 @@ namespace ImarisSelectorAdmin
         /// <param name="e"></param>
         private void buttonImarisPath_Click(object sender, EventArgs e)
         {
+            // Open a file dialog to pick the Imaris executable
             OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "Executable files (*.exe)|*.exe|All files (*.*)|*.*";
+            dialog.Title = "Please select the Imaris executable to manage";
             DialogResult result = dialog.ShowDialog();
-	        if (result == DialogResult.OK) // Test result.
+	        if (result == DialogResult.OK)
 	        {
                 // Set the Imaris path
                 this.m_ImarisPath = dialog.FileName;
@@ -45,17 +51,17 @@ namespace ImarisSelectorAdmin
                 // Display it also on the button
                 buttonImarisPath.Text = dialog.FileName;
 
-                // Set Imaris version
+                // Extract version information from the Imaris path
                 processImarisExecutablePath();
 
-                // Store ImarisPath and ImarisVersion to the registry
+                // Store ImarisPath and ImarisVersion to the settings file
                 ApplicationSettings.write(this.m_ImarisVersion, this.m_ImarisPath);
                 
 	        }
         }
 
         /// <summary>
-        /// Processes the Imaris executable path to extract the needed information
+        /// Processes the Imaris executable path to extract version information.
         /// </summary>
         private void processImarisExecutablePath()
         {

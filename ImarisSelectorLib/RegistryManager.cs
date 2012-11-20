@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Security.Principal;
 using Microsoft.Win32;
 
@@ -76,32 +75,6 @@ namespace ImarisSelector
         }
         
         /// <summary>
-        /// Toggles the state of the license for the selected module.
-        /// </summary>
-        /// <param name="moduleName">Name of the module.</param>
-        /// <returns>True if the state could be set, false otherwise.</returns>
-        public bool ToggleLicenseState(String moduleName)
-        {
-            // Get current state
-            String state = GetLicenseState(moduleName);
-            if (state.Equals(""))
-            {
-                return false;
-            }
-
-            if (state.Equals("true")) 
-            {
-                DisableModule(moduleName);
-            } 
-            else
-            {
-                EnableModule(moduleName);
-            }
-
-            return true;
-        }
-
-        /// <summary>
         /// Disable module of given name.
         /// </summary>
         /// <param name="moduleName">Name of the module to be disabled.</param>
@@ -159,7 +132,7 @@ namespace ImarisSelector
         }
 
         /// <summary>
-        /// Enable all licenses in the registry
+        /// Enable all licenses in the registry.
         /// </summary>
         public void EnableModules(List<String> moduleNames)
         {
@@ -177,7 +150,7 @@ namespace ImarisSelector
         }
         
         /// <summary>
-        /// Get all module names (with the exception of ImarisBase)
+        /// Get all module names (with the exception of ImarisBase).
         /// </summary>
         /// <returns>A List of all module names </returns>
         public List<String> GetAllModuleNames()
@@ -186,7 +159,7 @@ namespace ImarisSelector
         }
 
         /// <summary>
-        /// Get selected module names for simple view
+        /// Get selected module names for simple view.
         /// </summary>
         /// <returns></returns>
         public List<String> GetSelectedModuleNames()
