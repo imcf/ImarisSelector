@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.checkedListBoxLicenses = new System.Windows.Forms.CheckedListBox();
             this.radioSelSimple = new System.Windows.Forms.RadioButton();
             this.radioSelAdvanced = new System.Windows.Forms.RadioButton();
@@ -44,7 +45,7 @@
             this.checkedListBoxLicenses.FormattingEnabled = true;
             this.checkedListBoxLicenses.Location = new System.Drawing.Point(12, 35);
             this.checkedListBoxLicenses.Name = "checkedListBoxLicenses";
-            this.checkedListBoxLicenses.Size = new System.Drawing.Size(460, 289);
+            this.checkedListBoxLicenses.Size = new System.Drawing.Size(460, 276);
             this.checkedListBoxLicenses.TabIndex = 0;
             this.checkedListBoxLicenses.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxLicenses_ItemCheck);
             this.checkedListBoxLicenses.SelectedIndexChanged += new System.EventHandler(this.checkedListBoxLicenses_SelectedIndexChanged);
@@ -136,6 +137,7 @@
             this.Controls.Add(this.radioSelSimple);
             this.Controls.Add(this.checkedListBoxLicenses);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainWindow";
             this.Text = "ImarisSelector";
             this.Load += new System.EventHandler(this.MainWindow_Load);

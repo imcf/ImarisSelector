@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("ImarisSelectorAdmin")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("ImarisSelector administrator backend.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Scs2")]
 [assembly: AssemblyProduct("ImarisSelectorAdmin")]
 [assembly: AssemblyCopyright("Copyright © Aaron Ponti  2012")]
 [assembly: AssemblyTrademark("")]

@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C# Express 2010
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImarisSelector", "ImarisSelector\ImarisSelector.csproj", "{D54F4885-C0F0-40DC-A411-A1B2499B27DE}"
 	ProjectSection(ProjectDependencies) = postProject
 		{863A933E-8DF6-49C2-B960-6D5EACD45D26} = {863A933E-8DF6-49C2-B960-6D5EACD45D26}
@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImarisSelectorAdmin", "Imar
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImarisSelectorLib", "ImarisSelectorLib\ImarisSelectorLib.csproj", "{863A933E-8DF6-49C2-B960-6D5EACD45D26}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupImarisSelector", "SetupImarisSelector\SetupImarisSelector.vdproj", "{6FB8A2DB-1F89-48FF-BD4D-8ABAED53E0F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,6 +70,16 @@ Global
 		{863A933E-8DF6-49C2-B960-6D5EACD45D26}.Release|x64.ActiveCfg = Release|x64
 		{863A933E-8DF6-49C2-B960-6D5EACD45D26}.Release|x64.Build.0 = Release|x64
 		{863A933E-8DF6-49C2-B960-6D5EACD45D26}.Release|x86.ActiveCfg = Release|Any CPU
+		{6FB8A2DB-1F89-48FF-BD4D-8ABAED53E0F8}.Debug|Any CPU.ActiveCfg = Debug
+		{6FB8A2DB-1F89-48FF-BD4D-8ABAED53E0F8}.Debug|Mixed Platforms.ActiveCfg = Debug
+		{6FB8A2DB-1F89-48FF-BD4D-8ABAED53E0F8}.Debug|x64.ActiveCfg = Debug
+		{6FB8A2DB-1F89-48FF-BD4D-8ABAED53E0F8}.Debug|x64.Build.0 = Debug
+		{6FB8A2DB-1F89-48FF-BD4D-8ABAED53E0F8}.Debug|x86.ActiveCfg = Debug
+		{6FB8A2DB-1F89-48FF-BD4D-8ABAED53E0F8}.Release|Any CPU.ActiveCfg = Release
+		{6FB8A2DB-1F89-48FF-BD4D-8ABAED53E0F8}.Release|Mixed Platforms.ActiveCfg = Release
+		{6FB8A2DB-1F89-48FF-BD4D-8ABAED53E0F8}.Release|x64.ActiveCfg = Release
+		{6FB8A2DB-1F89-48FF-BD4D-8ABAED53E0F8}.Release|x64.Build.0 = Release
+		{6FB8A2DB-1F89-48FF-BD4D-8ABAED53E0F8}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

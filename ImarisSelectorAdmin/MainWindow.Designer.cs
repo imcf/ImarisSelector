@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.buttonImarisPath = new System.Windows.Forms.Button();
             this.buttonAbout = new System.Windows.Forms.Button();
             this.buttonHelp = new System.Windows.Forms.Button();
@@ -83,6 +84,7 @@
             this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.buttonImarisPath);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainWindow";
             this.Text = "ImarisSelector :: Admin";
             this.ResumeLayout(false);
