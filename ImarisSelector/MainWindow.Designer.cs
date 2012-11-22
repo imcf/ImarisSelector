@@ -37,6 +37,7 @@
             this.labelLicenseName = new System.Windows.Forms.Label();
             this.buttonHelp = new System.Windows.Forms.Button();
             this.buttonAbout = new System.Windows.Forms.Button();
+            this.buttonExport = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // checkedListBoxLicenses
@@ -123,11 +124,22 @@
             this.buttonAbout.UseVisualStyleBackColor = true;
             this.buttonAbout.Click += new System.EventHandler(this.buttonAbout_Click);
             // 
+            // buttonExport
+            // 
+            this.buttonExport.Location = new System.Drawing.Point(387, 4);
+            this.buttonExport.Name = "buttonExport";
+            this.buttonExport.Size = new System.Drawing.Size(25, 25);
+            this.buttonExport.TabIndex = 8;
+            this.buttonExport.Text = "E";
+            this.buttonExport.UseVisualStyleBackColor = true;
+            this.buttonExport.Click += new System.EventHandler(this.buttonExport_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 461);
+            this.Controls.Add(this.buttonExport);
             this.Controls.Add(this.buttonAbout);
             this.Controls.Add(this.buttonHelp);
             this.Controls.Add(this.labelLicenseName);
@@ -156,5 +168,6 @@
         private System.Windows.Forms.Label labelLicenseName;
         private System.Windows.Forms.Button buttonHelp;
         private System.Windows.Forms.Button buttonAbout;
+        private System.Windows.Forms.Button buttonExport;
     }
 }

@@ -300,7 +300,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ImarisSelector"
         "ProductCode" = "8:{0AAA5CD6-A7D7-4CFE-B552-C3B49E034C44}"
-        "PackageCode" = "8:{5A8514CC-70B2-4E88-8B8C-375C55D0B13C}"
+        "PackageCode" = "8:{6824EB69-2928-4081-B24E-BD0FE3F44DA1}"
         "UpgradeCode" = "8:{31EFE1ED-5124-4CDA-992F-469E6D3DE479}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

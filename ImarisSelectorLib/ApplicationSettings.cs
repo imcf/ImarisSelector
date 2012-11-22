@@ -81,7 +81,7 @@ namespace ImarisSelectorLib
             CreateSettingsDirIfNeeded(SettingsDirectoryName());
 
             // Write the settings to file
-            StreamWriter file = new System.IO.StreamWriter(settingsFullFileName());
+            StreamWriter file = new StreamWriter(settingsFullFileName());
             if (file != null)
             {
                 file.WriteLine("ImarisSelector Settings File version 1");

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
 using ImarisSelectorLib;
+using System.IO;
 
 namespace ImarisSelector
 {
@@ -240,5 +241,30 @@ namespace ImarisSelector
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private void buttonExport_Click(object sender, EventArgs e)
+        {
+            // Export the licenses to file
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Text file|*.txt";
+            saveFileDialog.Title = "Export module list to file...";
+            saveFileDialog.ShowDialog();
+
+            // If the file name is not an empty we save the module names to the selected file
+            if (saveFileDialog.FileName != "")
+            {
+                StreamWriter file = new StreamWriter(saveFileDialog.FileName);
+                if (file != null)
+                {
+                    foreach (String moduleName in this.m_Manager.GetAllModuleNames())
+                    {
+                        file.WriteLine(moduleName + "\n");
+                    }
+                    file.WriteLine();
+                    file.WriteLine("{0} modules exported.", 
+                        m_Manager.GetAllModuleNames().Count);
+                    file.Close();
+                }
+            }
+        }
     }
 }
