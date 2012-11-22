@@ -150,7 +150,7 @@ namespace ImarisSelector
         }
         
         /// <summary>
-        /// Get all module names (with the exception of ImarisBase).
+        /// Get all module names (with the exception of ImarisBase and ImarisAnalyzer).
         /// </summary>
         /// <returns>A List of all module names </returns>
         public List<String> GetAllModuleNames()
@@ -207,8 +207,10 @@ namespace ImarisSelector
             foreach (String module in moduleNames)
             {
                 // Get the license state
+                // We hide ImarisBase since it cannot be disabled anyway and ImarisAnalyzer,
+                // which appears to be an old (inactive) module
                 String value = GetLicenseState(module);
-                if (!module.Equals("ImarisBase") && !value.Equals(""))
+                if (!module.Equals("ImarisBase") && !module.Equals("ImarisAnalyzer") && !value.Equals(""))
                 {
                     this.m_CompleteModuleList.Add(module);
                 }

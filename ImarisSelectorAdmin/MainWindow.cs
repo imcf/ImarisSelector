@@ -18,6 +18,10 @@ namespace ImarisSelectorAdmin
         {
             InitializeComponent();
 
+            // Make window unresizable
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+
             // Get the application settings from the settings file.
             String ImarisVersionFromSettingsFile;
             String ImarisPathFromSettingsFile;
@@ -126,7 +130,11 @@ namespace ImarisSelectorAdmin
         {
             // Display version and copyright information
             MessageBox.Show("ImarisSelector :: Admin v" + m_ImarisSelectorAdminVersion + "\n\n" +
-                "Copyright (c) Aaron Ponti, 2012.",
+                "Aaron Ponti\n" +
+                "Single-Cell Facility\n" +
+                "Department of Biosystems Science and Engineering\n" +
+                "ETHZ (Basel)\n" +
+                "Copyright (c) 2012.",
                 "ImarisSelector :: Admin -- About",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
 

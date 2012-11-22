@@ -45,6 +45,10 @@ namespace ImarisSelector
 
             // Initialize the window components
             InitializeComponent();
+
+            // Make window unresizable
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
         }
 
         /// <summary>
@@ -227,7 +231,11 @@ namespace ImarisSelector
         {
             // Display version and copyright information
             MessageBox.Show("ImarisSelector v" + m_ImarisSelectorVersion + "\n\n" +
-                "Copyright (c) Aaron Ponti, 2012.",
+                "Aaron Ponti\n" +
+                "Single-Cell Facility\n" +
+                "Department of Biosystems Science and Engineering\n" +
+                "ETHZ (Basel)\n" +
+                "Copyright (c) 2012.",
                 "ImarisSelector -- About",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
