@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using ImarisSelectorLib;
@@ -9,7 +11,6 @@ namespace ImarisSelectorAdmin
     {
         private String m_ImarisPath;
         private String m_ImarisVersion;
-        private String m_ImarisSelectorAdminVersion = "0.0.0";
 
         /// <summary>
         /// Constructor.
@@ -122,6 +123,17 @@ namespace ImarisSelectorAdmin
         }
 
         /// <summary>
+        /// Return the application version.
+        /// </summary>
+        /// <returns></returns>
+        private String GetVersion()
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            return fvi.ProductVersion;
+        }
+
+        /// <summary>
         /// Display application About dialog.
         /// </summary>
         /// <param name="sender"></param>
@@ -129,7 +141,7 @@ namespace ImarisSelectorAdmin
         private void buttonAbout_Click(object sender, EventArgs e)
         {
             // Display version and copyright information
-            MessageBox.Show("ImarisSelector :: Admin v" + m_ImarisSelectorAdminVersion + "\n\n" +
+            MessageBox.Show("ImarisSelector :: Admin v" + GetVersion() + "\n\n" +
                 "Aaron Ponti\n" +
                 "Single-Cell Facility\n" +
                 "Department of Biosystems Science and Engineering\n" +

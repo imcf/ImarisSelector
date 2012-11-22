@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 using System.Windows.Forms;
 using ImarisSelectorLib;
-using System.IO;
 
 namespace ImarisSelector
 {
     public partial class MainWindow : Form
     {
-        protected String m_ImarisSelectorVersion = "0.0.0";
+        // Registry manager
         protected RegistryManager m_Manager;
 
         // ImarisVersion and ImarisFullPath are read from the ImarisSelector settings file
@@ -231,7 +232,7 @@ namespace ImarisSelector
         private void buttonAbout_Click(object sender, EventArgs e)
         {
             // Display version and copyright information
-            MessageBox.Show("ImarisSelector v" + m_ImarisSelectorVersion + "\n\n" +
+            MessageBox.Show("ImarisSelector v" + GetVersion() + "\n\n" +
                 "Aaron Ponti\n" +
                 "Single-Cell Facility\n" +
                 "Department of Biosystems Science and Engineering\n" +
@@ -241,6 +242,22 @@ namespace ImarisSelector
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        /// <summary>
+        /// Return the application version.
+        /// </summary>
+        /// <returns></returns>
+        private String GetVersion()
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            return fvi.ProductVersion;
+        }
+
+        /// <summary>
+        /// Exports the list of module names to a user-defined (text) file.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonExport_Click(object sender, EventArgs e)
         {
             // Export the licenses to file

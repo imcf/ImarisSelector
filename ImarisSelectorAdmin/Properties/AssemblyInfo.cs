@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("ImarisSelectorAdmin")]
 [assembly: AssemblyDescription("ImarisSelector administrator backend.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Scs2")]
+[assembly: AssemblyCompany("ETH Zurich")]
 [assembly: AssemblyProduct("ImarisSelectorAdmin")]
 [assembly: AssemblyCopyright("Copyright © Aaron Ponti  2012")]
 [assembly: AssemblyTrademark("")]
@@ -33,4 +33,4 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("0.9.0.0")]
