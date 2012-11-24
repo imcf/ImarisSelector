@@ -73,10 +73,10 @@ namespace ImarisSelector
             this.m_Manager.EnableAllModules();
 
             // ... and disable the selected ones (in the registry)
-            this.m_Manager.DisableModules(m_Manager.GetSelectedModuleNames());
+            this.m_Manager.DisableProducts(m_Manager.GetProductNames());
 
             // Fill the checkedListBox
-            FillLicenseList();
+            FillProductOrModuleList();
         }
 
         /// <summary>
@@ -88,13 +88,20 @@ namespace ImarisSelector
         private void checkedListBoxLicenses_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Get the selected module name
-            String moduleName = (String)checkedListBoxLicenses.SelectedItem;
-            
-            // Update the module name field
-            labelLicenseName.Text = moduleName;
+            String itemName = (String)checkedListBoxLicenses.SelectedItem;
 
-            // Update the description field
-            labelLicenseDescription.Text = m_Manager.GetModuleDescription(moduleName);
+            if (isProductView())
+            {
+                // Update the product name and description fields
+                labelLicenseName.Text = itemName;
+                labelLicenseDescription.Text = m_Manager.GetProductDescription(itemName);
+            }
+            else
+            {
+                // Update the module name and description fields
+                labelLicenseName.Text = m_Manager.GetProductForModule(itemName); ;
+                labelLicenseDescription.Text = m_Manager.GetModuleDescription(itemName);
+            }
         }
 
         /// <summary>
@@ -105,18 +112,34 @@ namespace ImarisSelector
         private void checkedListBoxLicenses_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             // Get the module name
-            String module = checkedListBoxLicenses.Items[e.Index].ToString();
+            String itemName = checkedListBoxLicenses.Items[e.Index].ToString();
 
             // Set the new state
             if (e.NewValue == CheckState.Checked)
             {
-                // Enable the module
-                m_Manager.EnableModule(module);
+                if (isProductView())
+                {
+                    // Enable the module
+                    m_Manager.EnableModules(m_Manager.GetModulesForProduct(itemName));
+                }
+                else
+                {
+                    // Enable the module
+                    m_Manager.EnableModule(itemName);
+                }
             }
             else
             {
-                // Disable the module
-                m_Manager.DisableModule(module);
+                if (radioSelByProduct.Checked)
+                {
+                    // Enable the module
+                    m_Manager.DisableModules(m_Manager.GetModulesForProduct(itemName));
+                }
+                else
+                {
+                    // Enable the module
+                    m_Manager.DisableModule(itemName);
+                }
             }
         }
 
@@ -128,7 +151,7 @@ namespace ImarisSelector
         private void radioSelSimple_CheckedChanged(object sender, EventArgs e)
         {
             // Fill the checkedListBox
-            FillLicenseList();
+            FillProductOrModuleList();
         }
 
         /// <summary>
@@ -139,7 +162,7 @@ namespace ImarisSelector
         private void radioSelAdvanced_CheckedChanged(object sender, EventArgs e)
         {
             // Fill the checkedListBox
-            FillLicenseList();
+            FillProductOrModuleList();
         }
 
         /// <summary>
@@ -185,15 +208,15 @@ namespace ImarisSelector
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void FillLicenseList()
+        private void FillProductOrModuleList()
         {
             List<String> moduleNames;
 
             // Fill the checkedListBox with either the selected or the 
             // complete list, depending on the datio button values
-            if (radioSelSimple.Checked)
+            if (isProductView())
             {
-                moduleNames = m_Manager.GetSelectedModuleNames();
+                moduleNames = m_Manager.GetProductNames();
             }
             else
             {
@@ -204,10 +227,18 @@ namespace ImarisSelector
             checkedListBoxLicenses.Items.Clear();
 
             // Fill the checkedListBox
+            bool isEnabled;
             foreach (String moduleName in moduleNames)
             {
-                bool isChecked = m_Manager.GetLicenseState(moduleName).Equals("true");
-                checkedListBoxLicenses.Items.Add(moduleName, isChecked);
+                if (isProductView())
+                {
+                    isEnabled = m_Manager.IsProductEnabled(moduleName);
+                }
+                else
+                {
+                    isEnabled = m_Manager.IsModuleEnabled(moduleName);
+                }
+                checkedListBoxLicenses.Items.Add(moduleName, isEnabled);
             }
         }
 
@@ -283,5 +314,15 @@ namespace ImarisSelector
                 }
             }
         }
+
+        /// <summary>
+        /// Checks whether the product view is enabled.
+        /// </summary>
+        /// <returns>true if the product view is enable, false if the module view is enabled.</returns>
+        private bool isProductView()
+        {
+            return radioSelByProduct.Checked;
+        }
+
     }
 }

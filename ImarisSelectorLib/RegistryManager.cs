@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
 using Microsoft.Win32;
+using ImarisSelectorLib;
 
 /*
  * Static class for registry management
@@ -14,9 +15,10 @@ namespace ImarisSelector
         // Private backing stores
         private String m_UserSID;
         private String m_ImarisVersionString;
-        private List<String> m_CompleteModuleList;
-        private List<String> m_SelectedModuleList;
-        private Dictionary<String, String> m_ModuleDescriptions;
+        private List<String> m_InstalledModuleList;
+        private List<String> m_InstalledProductList;
+        
+        private ModuleCatalog m_ModuleCatalog;
 
         /// <summary>
         /// Constructor.
@@ -24,16 +26,16 @@ namespace ImarisSelector
         /// <param name="ver">Imaris version in the form "Imaris x64 7.6" (no patch version).</param>
         public RegistryManager(String ver)
         {
-            // Fill in the database of module descriptions
-            fillModuleDescriptions();
+            // Initialize the module and product catalogs
+            this.m_ModuleCatalog = new ModuleCatalog();
 
             // Set user SID and Imaris version for use by other methods
             this.m_UserSID = WindowsIdentity.GetCurrent().User.ToString();
             this.m_ImarisVersionString = ver;
 
             // Get and store the licenses from the registry
-            BuildAndStoreAllModuleNameList();
-            BuildAndStoreSimpleModuleNameList();
+            GetInstalledModuleList();
+            GetInstalledProductList();
         }
 
         /// <summary>
@@ -42,23 +44,23 @@ namespace ImarisSelector
         /// <returns>True if license information could be found, false otherwise.</returns>
         public bool LicenseInformationFound()
         {
-            return (this.m_CompleteModuleList.Count() > 0);
+            return (this.m_InstalledModuleList.Count() > 0);
         }
 
         /// <summary>
         /// Return the state of the license for the selected module.
         /// </summary>
         /// <param name="moduleName">Name of the module.</param>
-        /// <returns>"ture" if the license is enabled, "false" if it is disabled, 
+        /// <returns>"true" if the license is enabled, "false" if it is disabled, 
         /// and "" if the license could not be found.</returns>
-        public String GetLicenseState(String moduleName)
+        public bool IsModuleEnabled(String moduleName)
         {
             // Get the licenses key
             RegistryKey licensesKey = GetLicensesKey();
             if (licensesKey == null)
             {
                 // TODO Handle this case properly!
-                return "";
+                return false;
             }
 
             // Get the value for the module
@@ -69,11 +71,11 @@ namespace ImarisSelector
 
             if (value == null)
             {
-                return "";
+                return false;
             }
-            return value;
+            return value.Equals("true");
         }
-        
+
         /// <summary>
         /// Disable module of given name.
         /// </summary>
@@ -110,6 +112,25 @@ namespace ImarisSelector
         }
 
         /// <summary>
+        /// Disable all licenses in the registry (with the exception of Imaris base).
+        /// </summary>
+        public void DisableProducts(List<String> productNames)
+        {
+            // For each of the products get the corresponding modules
+            foreach (String product in productNames)
+            {
+                List<String> modules = this.m_ModuleCatalog.GetModulesForProduct(product);
+                DisableModules(modules);
+            }
+
+            // Get all licenses
+            List<String> allModuleNames = GetAllModuleNames();
+
+            // Diable all modules
+            DisableModules(allModuleNames);
+        }
+
+        /// <summary>
         /// Enable module of given name.
         /// </summary>
         /// <param name="moduleName">Name of the module to be enabled.</param>
@@ -128,7 +149,7 @@ namespace ImarisSelector
 
             // Enable all
             EnableModules(allModuleNames);
-        
+
         }
 
         /// <summary>
@@ -140,7 +161,7 @@ namespace ImarisSelector
             foreach (String moduleName in moduleNames)
             {
                 // Check it the license is disabled
-                if (GetLicenseState(moduleName).Equals("false"))
+                if (!IsModuleEnabled(moduleName))
                 {
                     // Enable the license
                     EnableModule(moduleName);
@@ -148,23 +169,66 @@ namespace ImarisSelector
             }
 
         }
-        
+
         /// <summary>
         /// Get all module names (with the exception of ImarisBase and ImarisAnalyzer).
         /// </summary>
         /// <returns>A List of all module names </returns>
         public List<String> GetAllModuleNames()
         {
-            return this.m_CompleteModuleList;
+            return this.m_InstalledModuleList;
         }
 
         /// <summary>
         /// Get selected module names for simple view.
         /// </summary>
         /// <returns></returns>
-        public List<String> GetSelectedModuleNames()
+        public List<String> GetProductNames()
         {
-            return this.m_SelectedModuleList;
+            return this.m_InstalledProductList;
+        }
+
+        /// <summary>
+        /// Returns true if the product is enabled. It at least one of the
+        /// modules in a product are enabled, the product is enabled as well.
+        /// </summary>
+        /// <param name="moduleName">Name of the module.</param>
+        /// <returns>Product name.</returns>
+        public bool IsProductEnabled(String productName)
+        {
+            // Get modules for the product
+            List<String> moduleNames =
+                this.m_ModuleCatalog.GetModulesForProduct(productName);
+
+            // Check the module states
+            foreach (String module in moduleNames)
+            {
+                if (IsModuleEnabled(module))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Returns name of the product to which the module belongs.
+        /// </summary>
+        /// <param name="moduleName">Name of the module.</param>
+        /// <returns>Product name.</returns>
+        public String GetProductForModule(String moduleName)
+        {
+            return this.m_ModuleCatalog.GetProductForModule(moduleName);
+        }
+
+
+        /// <summary>
+        /// Returns the description for a given product.
+        /// </summary>
+        /// <returns>Product description.</returns>
+        public String GetProductDescription(String productName)
+        {
+            return this.m_ModuleCatalog.GetProductDescription(productName);
         }
 
         /// <summary>
@@ -173,27 +237,27 @@ namespace ImarisSelector
         /// <returns>Module description.</returns>
         public String GetModuleDescription(String moduleName)
         {
-            String descr;
-            if (m_ModuleDescriptions.TryGetValue(moduleName, out descr))
-            {
-                return descr;
-            }
-            else
-            {
-                return "Unknown module.";
-            }
+            return this.m_ModuleCatalog.GetModuleDescription(moduleName);
         }
 
+        /// <summary>
+        /// Returns the modules that belong to a given product.
+        /// </summary>
+        /// <returns>List of modules.</returns>
+        public List<String> GetModulesForProduct(String productName)
+        {
+            return this.m_ModuleCatalog.GetModulesForProduct(productName);
+        }
 
         //// PRIVATE METHODS 
 
         /// <summary>
         /// Gets and stores all licenses from the registry (with the exception of ImarisBase).
         /// </summary>
-        private void BuildAndStoreAllModuleNameList()
+        private void GetInstalledModuleList()
         {
             // Initialize List
-            this.m_CompleteModuleList = new List<String>();
+            this.m_InstalledModuleList = new List<String>();
 
             // Get the licenses registry key (read-only)
             RegistryKey licensesKey = GetLicensesKey(false);
@@ -209,49 +273,21 @@ namespace ImarisSelector
                 // Get the license state
                 // We hide ImarisBase since it cannot be disabled anyway and ImarisAnalyzer,
                 // which appears to be an old (inactive) module
-                String value = GetLicenseState(module);
-                if (!module.Equals("ImarisBase") && !module.Equals("ImarisAnalyzer") && !value.Equals(""))
+                if (!module.Equals("ImarisBase") && !module.Equals("ImarisAnalyzer"))
                 {
-                    this.m_CompleteModuleList.Add(module);
+                    this.m_InstalledModuleList.Add(module);
                 }
-                else
-                {
-                    System.Console.WriteLine("Could not retrieve state for module" + module + ".");
-                }
-
             }
+
         }
 
         /// <summary>
         /// Stores a subset of all module names to be displayed in the simple view
         /// </summary>
-        private void BuildAndStoreSimpleModuleNameList()
-        {
-            // Initialize List
-            this.m_SelectedModuleList = new List<String>();
-
-            // Iterate over all known licenses and store a subset for the simple view
-            foreach (String moduleName in this.m_CompleteModuleList)
-            {
-                switch (moduleName)
-                {
-                    case "ImarisAnalyzer":
-                    case "ImarisColoc":
-                    case "ImarisFilament":
-                    case "ImarisIPSS":
-                    case "ImarisInPress":
-                    case "ImarisManualSurface":
-                    case "ImarisStatistics":
-                    case "ImarisTrack":
-                    case "ImarisVantage":
-                        this.m_SelectedModuleList.Add(moduleName);
-                        break;
-                    default:
-                        break;
-                }
-
-
-            }
+        private void GetInstalledProductList()
+        {            
+            // Get the list of products
+            this.m_InstalledProductList = this.m_ModuleCatalog.GetProductsForModules(this.m_InstalledModuleList);
         }
 
         /// <summary>
@@ -305,123 +341,8 @@ namespace ImarisSelector
         /// <returns>Full path of the Licenses key</returns>
         private String GetImarisLicenseStatePath()
         {
-            return m_UserSID + "\\Software\\Bitplane\\" + 
+            return m_UserSID + "\\Software\\Bitplane\\" +
                 m_ImarisVersionString + "\\Licenses\\";
         }
-
-        /// <summary>
-        /// Fills the dictionary of module name - descriptions to be used in the UI.
-        /// </summary>
-        private void fillModuleDescriptions()
-        {
-            // Initialize the dictionary
-            this.m_ModuleDescriptions = new Dictionary<String, String>();
-
-            // Add all known modules with a short description
-            m_ModuleDescriptions.Add(
-                "ImarisAnalyzer", 
-                "");
-            m_ModuleDescriptions.Add(
-                "ImarisBase", 
-                "Imaris");
-            m_ModuleDescriptions.Add(
-                "ImarisCellsViewer", 
-                "Imaris Cell");
-            m_ModuleDescriptions.Add(
-                "ImarisColoc",
-                "Imaris Coloc");
-            m_ModuleDescriptions.Add(
-                "ImarisFilament",
-                "Filament Tracer");
-            m_ModuleDescriptions.Add(
-                "ImarisInPress",
-                "Imaris InPress (part of Imaris Vantage)");
-            m_ModuleDescriptions.Add(
-                "ImarisIPSS",
-                "Imaris XT");
-            m_ModuleDescriptions.Add(
-                "ImarisManualSurface",
-                "Imaris Manual Surface (part of Imaris Measurement Pro)");
-            m_ModuleDescriptions.Add(
-                "ImarisMeasurementPoint",
-                "Imaris Measurement Point (part of Imaris Measurement Pro)");
-            m_ModuleDescriptions.Add(
-                "ImarisReaderBiorad",
-                "Bio-Rad MRC (series) file reader (*.pic)");
-            m_ModuleDescriptions.Add(
-                "ImarisReaderDeltaVision",
-                "Applied Precision DeltaVision file reader (*.r3d, *.dv)");
-            m_ModuleDescriptions.Add(
-                "ImarisReaderGatan",
-                "Gatan DigitalMicrograph (series) file reader (*.dm3)");
-            m_ModuleDescriptions.Add(
-                "ImarisReaderHamamatsu",
-                "Hamamatsu Compix SimplePCI file reader (*.cxd)");
-            m_ModuleDescriptions.Add(
-                "ImarisReaderIII",
-                "Imaris version 3.0 reader (*.ims)");
-            m_ModuleDescriptions.Add(
-                "ImarisReaderIMOD",
-                "IMOD MRC file reader (*.mrc, *.st, *.rec)");
-            m_ModuleDescriptions.Add(
-                "ImarisReaderIPLab",
-                "");
-            m_ModuleDescriptions.Add(
-                "ImarisReaderLeica",
-                "Leica file reader (*.lif, *.tif, *.tiff, *.inf, *.info, *.lei, *.raw)");
-            m_ModuleDescriptions.Add(
-                "ImarisReaderMicroManager",
-                "Micro-Manager Image5D file reader (*.tif, *.tiff, *.txt)");
-            m_ModuleDescriptions.Add(
-                "ImarisReaderNikon",
-                "Nikon Image Cytometry Standard and ND2 file reader (*.ics, *.ids, *.nd2)");
-            m_ModuleDescriptions.Add(
-                "ImarisReaderOlympus",
-                "Olympus CellR, Fluoview OIB, OIF, TIFF file reader (*.tif, *.tiff, *.oib, *.oif)");
-            m_ModuleDescriptions.Add(
-                "ImarisReaderOME",
-                "Open Microscopy Environment TIFF and XML file reader (*.tif, *.tiff, *.ome)");
-            m_ModuleDescriptions.Add(
-                "ImarisReaderPerkinElmerInc",
-                "Perkin Elmer Improvision Openlab LIFF (series), RAW and UltraView file reader (*.liff, *.raw, *.tim, *.zpo)");
-            m_ModuleDescriptions.Add(
-                "ImarisReaderPrairie",
-                "Prairie Technologies View file reader (*.xml, *.cfg, *.tif, *.tiff)");
-            m_ModuleDescriptions.Add(
-                "ImarisReaderTILL",
-                "TILL Photonics TILLvisION file reader (*.rbinf)");
-            m_ModuleDescriptions.Add(
-                "ImarisReaderUniversalImaging",
-                "");
-            m_ModuleDescriptions.Add(
-                "ImarisReaderZeiss",
-                "Zeiss AxioVision, CZI, LSM{3|4|5|7}10 file reader (*.zvi, *.czi, *.lsm, *.tif, *.tiff)");
-            m_ModuleDescriptions.Add(
-                "ImarisSceneViewer",
-                "");
-            m_ModuleDescriptions.Add(
-                "ImarisStatistics",
-                "Imaris Statistics (part of Imaris Measurement Pro)");
-            m_ModuleDescriptions.Add(
-                "ImarisSurpass",
-                "");
-            m_ModuleDescriptions.Add(
-                "ImarisSurpassBase",
-                "");
-            m_ModuleDescriptions.Add(
-                "ImarisTime",
-                "Part of Imaris base");
-            m_ModuleDescriptions.Add(
-                "ImarisTopography",
-                "Part of Imaris base");
-            m_ModuleDescriptions.Add(
-                "ImarisTrack",
-                "Imaris Track");
-            m_ModuleDescriptions.Add(
-                "ImarisVantage",
-                "Imaris Vantage");
-
-        }
-
     }
 }

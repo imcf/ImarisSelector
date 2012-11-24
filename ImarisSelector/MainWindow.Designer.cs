@@ -30,8 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.checkedListBoxLicenses = new System.Windows.Forms.CheckedListBox();
-            this.radioSelSimple = new System.Windows.Forms.RadioButton();
-            this.radioSelAdvanced = new System.Windows.Forms.RadioButton();
+            this.radioSelByProduct = new System.Windows.Forms.RadioButton();
+            this.radioSelByModule = new System.Windows.Forms.RadioButton();
             this.buttonStartImaris = new System.Windows.Forms.Button();
             this.labelLicenseDescription = new System.Windows.Forms.Label();
             this.labelLicenseName = new System.Windows.Forms.Label();
@@ -51,30 +51,30 @@
             this.checkedListBoxLicenses.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxLicenses_ItemCheck);
             this.checkedListBoxLicenses.SelectedIndexChanged += new System.EventHandler(this.checkedListBoxLicenses_SelectedIndexChanged);
             // 
-            // radioSelSimple
+            // radioSelByProduct
             // 
-            this.radioSelSimple.AutoSize = true;
-            this.radioSelSimple.Checked = true;
-            this.radioSelSimple.Location = new System.Drawing.Point(12, 12);
-            this.radioSelSimple.Name = "radioSelSimple";
-            this.radioSelSimple.Size = new System.Drawing.Size(59, 17);
-            this.radioSelSimple.TabIndex = 1;
-            this.radioSelSimple.TabStop = true;
-            this.radioSelSimple.Text = "Simple";
-            this.radioSelSimple.UseVisualStyleBackColor = true;
-            this.radioSelSimple.CheckedChanged += new System.EventHandler(this.radioSelSimple_CheckedChanged);
+            this.radioSelByProduct.AutoSize = true;
+            this.radioSelByProduct.Checked = true;
+            this.radioSelByProduct.Location = new System.Drawing.Point(12, 12);
+            this.radioSelByProduct.Name = "radioSelByProduct";
+            this.radioSelByProduct.Size = new System.Drawing.Size(81, 17);
+            this.radioSelByProduct.TabIndex = 1;
+            this.radioSelByProduct.TabStop = true;
+            this.radioSelByProduct.Text = "By product";
+            this.radioSelByProduct.UseVisualStyleBackColor = true;
+            this.radioSelByProduct.CheckedChanged += new System.EventHandler(this.radioSelSimple_CheckedChanged);
             // 
-            // radioSelAdvanced
+            // radioSelByModule
             // 
-            this.radioSelAdvanced.AutoSize = true;
-            this.radioSelAdvanced.Location = new System.Drawing.Point(81, 12);
-            this.radioSelAdvanced.Name = "radioSelAdvanced";
-            this.radioSelAdvanced.Size = new System.Drawing.Size(75, 17);
-            this.radioSelAdvanced.TabIndex = 2;
-            this.radioSelAdvanced.TabStop = true;
-            this.radioSelAdvanced.Text = "Advanced";
-            this.radioSelAdvanced.UseVisualStyleBackColor = true;
-            this.radioSelAdvanced.CheckedChanged += new System.EventHandler(this.radioSelAdvanced_CheckedChanged);
+            this.radioSelByModule.AutoSize = true;
+            this.radioSelByModule.Location = new System.Drawing.Point(99, 12);
+            this.radioSelByModule.Name = "radioSelByModule";
+            this.radioSelByModule.Size = new System.Drawing.Size(79, 17);
+            this.radioSelByModule.TabIndex = 2;
+            this.radioSelByModule.TabStop = true;
+            this.radioSelByModule.Text = "By module";
+            this.radioSelByModule.UseVisualStyleBackColor = true;
+            this.radioSelByModule.CheckedChanged += new System.EventHandler(this.radioSelAdvanced_CheckedChanged);
             // 
             // buttonStartImaris
             // 
@@ -145,8 +145,8 @@
             this.Controls.Add(this.labelLicenseName);
             this.Controls.Add(this.labelLicenseDescription);
             this.Controls.Add(this.buttonStartImaris);
-            this.Controls.Add(this.radioSelAdvanced);
-            this.Controls.Add(this.radioSelSimple);
+            this.Controls.Add(this.radioSelByModule);
+            this.Controls.Add(this.radioSelByProduct);
             this.Controls.Add(this.checkedListBoxLicenses);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -161,8 +161,8 @@
         #endregion
 
         private System.Windows.Forms.CheckedListBox checkedListBoxLicenses;
-        private System.Windows.Forms.RadioButton radioSelSimple;
-        private System.Windows.Forms.RadioButton radioSelAdvanced;
+        private System.Windows.Forms.RadioButton radioSelByProduct;
+        private System.Windows.Forms.RadioButton radioSelByModule;
         private System.Windows.Forms.Button buttonStartImaris;
         private System.Windows.Forms.Label labelLicenseDescription;
         private System.Windows.Forms.Label labelLicenseName;
