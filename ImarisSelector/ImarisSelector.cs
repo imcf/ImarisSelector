@@ -3,6 +3,9 @@ using System.Windows.Forms;
 
 namespace ImarisSelector
 {
+    /// <summary>
+    /// ImarisSelector allows picking the module licenses to check out when Imaris starts.
+    /// </summary>
     static class ImarisSelector
     {
         /// <summary>

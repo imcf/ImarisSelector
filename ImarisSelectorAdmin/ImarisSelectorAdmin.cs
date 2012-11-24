@@ -3,6 +3,9 @@ using System.Windows.Forms;
 
 namespace ImarisSelectorAdmin
 {
+    /// <summary>
+    /// The ImarisSelector companion administrator tool.
+    /// </summary>
     static class ImarisSelectorAdmin
     {
         /// <summary>

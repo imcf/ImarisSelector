@@ -7,6 +7,9 @@ using ImarisSelectorLib;
 
 namespace ImarisSelectorAdmin
 {
+    /// <summary>
+    /// ImarisSelectorAdmin main window.
+    /// </summary>
     public partial class MainWindow : Form
     {
         private String m_ImarisPath;

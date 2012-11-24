@@ -8,13 +8,24 @@ using ImarisSelectorLib;
 
 namespace ImarisSelector
 {
+    /// <summary>
+    /// ImarisSelector main window.
+    /// </summary>
     public partial class MainWindow : Form
     {
-        // Registry manager
+        /// <summary>
+        /// Private RegistryManager instance.
+        /// </summary>
         protected RegistryManager m_Manager;
 
-        // ImarisVersion and ImarisFullPath are read from the ImarisSelector settings file
+        /// <summary>
+        /// Imaris version needed to find the correct module keys in the registry.
+        /// </summary>
         protected String m_ImarisVersion;
+ 
+        /// <summary>
+        /// Full path to the Imaris executable.
+        /// </summary>
         protected String m_ImarisPath;
 
         /// <summary>
@@ -210,6 +221,10 @@ namespace ImarisSelector
         /// <param name="e"></param>
         private void FillProductOrModuleList()
         {
+            // Unbind the event handler to prevent the ItemCheck event t
+            this.checkedListBoxLicenses.ItemCheck -=
+                new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxLicenses_ItemCheck);
+
             List<String> moduleNames;
 
             // Fill the checkedListBox with either the selected or the 
@@ -240,6 +255,11 @@ namespace ImarisSelector
                 }
                 checkedListBoxLicenses.Items.Add(moduleName, isEnabled);
             }
+
+            // Rebind the event handler
+            this.checkedListBoxLicenses.ItemCheck += 
+                new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxLicenses_ItemCheck);
+
         }
 
         /// <summary>
@@ -279,6 +299,7 @@ namespace ImarisSelector
         /// <returns></returns>
         private String GetVersion()
         {
+            // Get version info from the assembly
             Assembly assembly = Assembly.GetExecutingAssembly();
             FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
             return fvi.ProductVersion;

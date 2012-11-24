@@ -6,16 +6,35 @@ using System.Collections;
 
 namespace ImarisSelectorLib
 {
-    // A class to hold information about modules
+    /// <summary>
+    /// A class to hold information about modules and products. 
+    /// </summary>
     class Module
     {
+        /// <summary>
+        /// Module ID corresponding to its name in the registry.
+        /// </summary>
         public String ID { get; set; }
+
+        /// <summary>
+        /// MOre human-readable name.
+        /// </summary>
         public String Name { get; set; }
+
+        /// <summary>
+        /// Name of the product to which the module belongs.
+        /// </summary>
         public String Product { get; set; }
+
+        /// <summary>
+        /// Module description.
+        /// </summary>
         public String Description { get; set; }
     }
 
-    // A class to manage catalog of modules
+    /// <summary>
+    /// A class to manage a catalog of modules and products. 
+    /// </summary>
     class ModuleCatalog
     {
         private IEnumerable<Module> m_ModuleCatalog;

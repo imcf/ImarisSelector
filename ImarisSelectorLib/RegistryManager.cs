@@ -6,10 +6,13 @@ using Microsoft.Win32;
 using ImarisSelectorLib;
 
 /*
- * Static class for registry management
+ * Class for registry management
  */
 namespace ImarisSelector
 {
+    /// <summary>
+    /// Class for managing registry keys associated to Imaris modules and their license state.
+    /// </summary>
     public class RegistryManager
     {
         // Private backing stores
@@ -192,7 +195,7 @@ namespace ImarisSelector
         /// Returns true if the product is enabled. It at least one of the
         /// modules in a product are enabled, the product is enabled as well.
         /// </summary>
-        /// <param name="moduleName">Name of the module.</param>
+        /// <param name="productName">Name of the module.</param>
         /// <returns>Product name.</returns>
         public bool IsProductEnabled(String productName)
         {
@@ -271,9 +274,9 @@ namespace ImarisSelector
             foreach (String module in moduleNames)
             {
                 // Get the license state
-                // We hide ImarisBase since it cannot be disabled anyway and ImarisAnalyzer,
-                // which appears to be an old (inactive) module
-                if (!module.Equals("ImarisBase") && !module.Equals("ImarisAnalyzer"))
+                // We hide ImarisAnalyzer, which appears to be an old (inactive) module
+                // TODO: Decide what to do with ImarisBase
+                if (!module.Equals("ImarisAnalyzer"))
                 {
                     this.m_InstalledModuleList.Add(module);
                 }
