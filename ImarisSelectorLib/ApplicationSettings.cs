@@ -4,7 +4,7 @@ using System.IO;
 namespace ImarisSelectorLib
 {
     /// <summary>
-    /// Class to manager the ImarisSelector settings.
+    /// Static class to manage the ImarisSelector settings.
     /// </summary>
     public static class ApplicationSettings
     {

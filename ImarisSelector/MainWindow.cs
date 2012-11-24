@@ -80,11 +80,11 @@ namespace ImarisSelector
                 StartImaris();
             }
 
-            // Initially enable all licenses...
-            this.m_Manager.EnableAllModules();
+            // Initially disable all modules
+            this.m_Manager.DisableAllModules();
 
-            // ... and disable the selected ones (in the registry)
-            this.m_Manager.DisableProducts(m_Manager.GetProductNames());
+            // But enable "Imaris" and "File Reader"
+            this.m_Manager.EnableProducts(new List<String> {"Imaris", "File Reader"});
 
             // Fill the checkedListBox
             FillProductOrModuleList();

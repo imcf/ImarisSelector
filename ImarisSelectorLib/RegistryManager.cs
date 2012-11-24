@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
 using Microsoft.Win32;
-using ImarisSelectorLib;
 
 /*
  * Class for registry management
  */
-namespace ImarisSelector
+namespace ImarisSelectorLib
 {
     /// <summary>
     /// Class for managing registry keys associated to Imaris modules and their license state.
@@ -89,7 +88,8 @@ namespace ImarisSelector
         }
 
         /// <summary>
-        /// Disable all licenses in the registry (with the exception of Imaris base).
+        /// Disable all licenses in the registry.
+        /// TODO: Decide what to do with ImarisBase.
         /// </summary>
         public void DisableModules(List<String> moduleNames)
         {
@@ -103,7 +103,8 @@ namespace ImarisSelector
         }
 
         /// <summary>
-        /// Disable all licenses in the registry (with the exception of Imaris base).
+        /// Disable all licenses in the registry.
+        /// // TODO: Decide what to do with ImarisBase.
         /// </summary>
         public void DisableAllModules()
         {
@@ -115,7 +116,7 @@ namespace ImarisSelector
         }
 
         /// <summary>
-        /// Disable all licenses in the registry (with the exception of Imaris base).
+        /// Disable modules belonging to specific products.
         /// </summary>
         public void DisableProducts(List<String> productNames)
         {
@@ -125,12 +126,6 @@ namespace ImarisSelector
                 List<String> modules = this.m_ModuleCatalog.GetModulesForProduct(product);
                 DisableModules(modules);
             }
-
-            // Get all licenses
-            List<String> allModuleNames = GetAllModuleNames();
-
-            // Diable all modules
-            DisableModules(allModuleNames);
         }
 
         /// <summary>
@@ -163,14 +158,23 @@ namespace ImarisSelector
             // Iterate over licenses
             foreach (String moduleName in moduleNames)
             {
-                // Check it the license is disabled
-                if (!IsModuleEnabled(moduleName))
-                {
-                    // Enable the license
-                    EnableModule(moduleName);
-                }
+                // Enable the license
+                EnableModule(moduleName);
             }
 
+        }
+
+        /// <summary>
+        /// Enable modules belonging to specific products.
+        /// </summary>
+        public void EnableProducts(List<String> productNames)
+        {
+            // For each of the products get the corresponding modules
+            foreach (String product in productNames)
+            {
+                List<String> modules = this.m_ModuleCatalog.GetModulesForProduct(product);
+                EnableModules(modules);
+            }
         }
 
         /// <summary>
@@ -180,6 +184,18 @@ namespace ImarisSelector
         public List<String> GetAllModuleNames()
         {
             return this.m_InstalledModuleList;
+        }
+
+        /// <summary>
+        /// Get selected module names for simple view.
+        /// </summary>
+        /// <returns></returns>
+        public List<String> GetProductNamesToDisable()
+        {
+            List<String> products = this.m_InstalledProductList;
+            products.Remove("Imaris");
+            products.Remove("File Reader");
+            return products;
         }
 
         /// <summary>

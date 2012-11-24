@@ -17,7 +17,7 @@ namespace ImarisSelectorLib
         public String ID { get; set; }
 
         /// <summary>
-        /// MOre human-readable name.
+        /// More human-readable name.
         /// </summary>
         public String Name { get; set; }
 

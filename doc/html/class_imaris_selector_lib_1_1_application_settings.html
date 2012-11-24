@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>ImarisSelector: ImarisSelectorAdmin.MainWindow Class Reference</title>
+<title>ImarisSelector: ImarisSelectorLib.ApplicationSettings Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,64 +83,34 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="namespace_imaris_selector_admin.html">ImarisSelectorAdmin</a></li><li class="navelem"><a class="el" href="class_imaris_selector_admin_1_1_main_window.html">MainWindow</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespace_imaris_selector_lib.html">ImarisSelectorLib</a></li><li class="navelem"><a class="el" href="class_imaris_selector_lib_1_1_application_settings.html">ApplicationSettings</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="class_imaris_selector_admin_1_1_main_window-members.html">List of all members</a>  </div>
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="class_imaris_selector_lib_1_1_application_settings-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">ImarisSelectorAdmin.MainWindow Class Reference</div>  </div>
+<div class="title">ImarisSelectorLib.ApplicationSettings Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="class_imaris_selector_admin_1_1_imaris_selector_admin.html" title="The ImarisSelector companion administrator tool. ">ImarisSelectorAdmin</a> main window.  
- <a href="class_imaris_selector_admin_1_1_main_window.html#details">More...</a></p>
-<div class="dynheader">
-Inheritance diagram for ImarisSelectorAdmin.MainWindow:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="class_imaris_selector_admin_1_1_main_window.png" usemap="#ImarisSelectorAdmin.MainWindow_map" alt=""/>
-  <map id="ImarisSelectorAdmin.MainWindow_map" name="ImarisSelectorAdmin.MainWindow_map">
-</map>
- </div></div>
+<p>Static class to manage the <a class="el" href="namespace_imaris_selector.html">ImarisSelector</a> settings.  
+ <a href="class_imaris_selector_lib_1_1_application_settings.html#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a9fa1e13cd44f9858ba2883afa298c186"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_imaris_selector_admin_1_1_main_window.html#a9fa1e13cd44f9858ba2883afa298c186">MainWindow</a> ()</td></tr>
-<tr class="memdesc:a9fa1e13cd44f9858ba2883afa298c186"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a9fa1e13cd44f9858ba2883afa298c186"></a><br/></td></tr>
-<tr class="separator:a9fa1e13cd44f9858ba2883afa298c186"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:aa64c0a607e46d585ee5a0866f680d35e"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_imaris_selector_admin_1_1_main_window.html#aa64c0a607e46d585ee5a0866f680d35e">Dispose</a> (bool disposing)</td></tr>
-<tr class="memdesc:aa64c0a607e46d585ee5a0866f680d35e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clean up any resources being used.  <a href="#aa64c0a607e46d585ee5a0866f680d35e"></a><br/></td></tr>
-<tr class="separator:aa64c0a607e46d585ee5a0866f680d35e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a59978b0d687e4013e0ab9a4c7f3172e8"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_imaris_selector_lib_1_1_application_settings.html#a59978b0d687e4013e0ab9a4c7f3172e8">read</a> (out String ImarisVersion, out String ImarisPath)</td></tr>
+<tr class="memdesc:a59978b0d687e4013e0ab9a4c7f3172e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the <a class="el" href="namespace_imaris_selector.html">ImarisSelector</a> settings from the settings file.  <a href="#a59978b0d687e4013e0ab9a4c7f3172e8"></a><br/></td></tr>
+<tr class="separator:a59978b0d687e4013e0ab9a4c7f3172e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad736729b7db6ac0128e30639f4c1167e"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_imaris_selector_lib_1_1_application_settings.html#ad736729b7db6ac0128e30639f4c1167e">write</a> (String ImarisVersion, String ImarisPath)</td></tr>
+<tr class="memdesc:ad736729b7db6ac0128e30639f4c1167e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the application settings to the settings file.  <a href="#ad736729b7db6ac0128e30639f4c1167e"></a><br/></td></tr>
+<tr class="separator:ad736729b7db6ac0128e30639f4c1167e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="class_imaris_selector_admin_1_1_imaris_selector_admin.html" title="The ImarisSelector companion administrator tool. ">ImarisSelectorAdmin</a> main window. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a9fa1e13cd44f9858ba2883afa298c186"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">ImarisSelectorAdmin.MainWindow.MainWindow </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Constructor. </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="aa64c0a607e46d585ee5a0866f680d35e"></a>
+<div class="textblock"><p>Static class to manage the <a class="el" href="namespace_imaris_selector.html">ImarisSelector</a> settings. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a59978b0d687e4013e0ab9a4c7f3172e8"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -148,33 +118,80 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">override void ImarisSelectorAdmin.MainWindow.Dispose </td>
+          <td class="memname">static bool ImarisSelectorLib.ApplicationSettings.read </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>disposing</em></td><td>)</td>
+          <td class="paramtype">out String&#160;</td>
+          <td class="paramname"><em>ImarisVersion</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">out String&#160;</td>
+          <td class="paramname"><em>ImarisPath</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Clean up any resources being used. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">disposing</td><td>true if managed resources should be disposed; otherwise, false.</td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Get the <a class="el" href="namespace_imaris_selector.html">ImarisSelector</a> settings from the settings file. </p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>ImarisSelectorAdmin/MainWindow.cs</li>
-<li>ImarisSelectorAdmin/MainWindow.Designer.cs</li>
+<a class="anchor" id="ad736729b7db6ac0128e30639f4c1167e"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool ImarisSelectorLib.ApplicationSettings.write </td>
+          <td>(</td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>ImarisVersion</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">String&#160;</td>
+          <td class="paramname"><em>ImarisPath</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set the application settings to the settings file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ImarisVersion</td><td>Imaris version, in the form "Imaris x64 7.6"</td></tr>
+    <tr><td class="paramname">ImarisPath</td><td>Full path of the Imaris executable.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>ImarisSelectorLib/ApplicationSettings.cs</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
