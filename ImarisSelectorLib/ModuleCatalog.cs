@@ -69,6 +69,30 @@ namespace ImarisSelectorLib
         }
 
         /// <summary>
+        /// Get the human-readable name for module with specific name.
+        /// </summary>
+        /// <param name="moduleName">Name of the module.</param>
+        /// <returns>Module human-readable name.</returns>
+        public String GetModuleName(String moduleName)
+        {
+            // Query the module catalog for the module name and get its description.
+            var results =
+                from knownModule in this.m_ModuleCatalog
+                where knownModule.ID.Equals(moduleName)
+                select new { knownModule.Name };
+
+            // Return
+            if (results.Count() == 0)
+            {
+                return "Unknown module.";
+            }
+            else
+            {
+                return results.ElementAt(0).Name.ToString();
+            }
+        }
+
+        /// <summary>
         /// Get the description for module with specific name.
         /// </summary>
         /// <param name="moduleName">Name of the module.</param>
@@ -191,9 +215,29 @@ namespace ImarisSelectorLib
                     Description = "Unknown module" },
                 new Module {
                     ID = "ImarisBase",
-                    Name = "Imaris",
+                    Name = "Imaris Base",
                     Product = "Imaris",
-                    Description = "Imaris" },
+                    Description = "" },
+                new Module {
+                    ID = "ImarisSurpass",
+                    Name = "Imaris Surpass",
+                    Product = "Imaris",
+                    Description = ""},
+                new Module {
+                    ID = "ImarisSurpassBase",
+                    Name = "Imaris Surpass Base",
+                    Product = "Imaris",
+                    Description = ""},
+                new Module {
+                    ID = "ImarisTime",
+                    Name = "Imaris Time",
+                    Product = "Imaris",
+                    Description = ""},
+                new Module {
+                    ID = "ImarisTopography",
+                    Name = "ImarisTopography",
+                    Product = "Imaris",
+                    Description = ""},
                 new Module {
                     ID = "ImarisCellsViewer",
                     Name = "Imaris Cell",
@@ -213,7 +257,7 @@ namespace ImarisSelectorLib
                     ID = "ImarisInPress",
                     Name = "Imaris InPress",
                     Product = "Imaris Vantage", 
-                    Description = "Part of Imaris Vantage"},
+                    Description = ""},
                 new Module {
                     ID = "ImarisIPSS",
                     Name = "Imaris XT",
@@ -223,95 +267,95 @@ namespace ImarisSelectorLib
                     ID = "ImarisManualSurface",
                     Name = "Imaris Manual Surface", 
                     Product = "Imaris Measurement Pro", 
-                    Description = "Part of Imaris Measurement Pro"},
+                    Description = ""},
                 new Module {
                     ID = "ImarisMeasurementPoint",
                     Name = "Imaris Measurement Point",
                     Product = "Imaris Measurement Pro",
-                    Description = "Part of Imaris Measurement Pro"},
+                    Description = ""},
                 new Module {
                     ID = "ImarisReaderBiorad",
-                    Name = "Bio-Rad MRC (series) file reader", 
+                    Name = "Bio-Rad MRC (series)", 
                     Product = "File Reader", 
                     Description = "Supported extensions: *.pic"},
                 new Module {
                     ID = "ImarisReaderDeltaVision",
-                    Name = "Applied Precision DeltaVision file reader", 
+                    Name = "Applied Precision DeltaVision", 
                     Product = "File Reader", 
                     Description = "Supported extensions: *.r3d, *.dv"},
                 new Module {
                     ID = "ImarisReaderGatan",
-                    Name = "Gatan DigitalMicrograph (series) file reader", 
+                    Name = "Gatan DigitalMicrograph (series)", 
                     Product = "File Reader",
                     Description = "Supported extensions: *.dm3"},
                 new Module {
                     ID = "ImarisReaderHamamatsu",
-                    Name = "Hamamatsu Compix SimplePCI file reader (*.cxd)",
+                    Name = "Hamamatsu Compix SimplePCI",
                     Product = "File Reader",
-                    Description = ""},
+                    Description = "Supported extensions: *.cxd"},
                 new Module {
                     ID = "ImarisReaderIII",
-                    Name = "Imaris version 3.0 reader (*.ims)",
+                    Name = "Imaris version 3.0 reader",
                     Product = "File Reader",
-                    Description = ""},
+                    Description = "Supported extensions: *.ims"},
                 new Module {
                     ID = "ImarisReaderIMOD",
-                    Name = "IMOD MRC file reader",
+                    Name = "IMOD MRC",
                     Product = "File Reader", 
                     Description = "Supported extensions: *.mrc, *.st, *.rec"},
                 new Module {
                     ID = "ImarisReaderIPLab",
                     Name = "???",
                     Product = "File Reader",
-                    Description = ""},
+                    Description = "Supported extesions: *.???"},
                 new Module {
                     ID = "ImarisReaderLeica",
-                    Name = "Leica file reader",
+                    Name = "Leica",
                     Product = "File Reader",
                     Description = "Supported extensions: *.lif, *.tif, *.tiff, *.inf, *.info, *.lei, *.raw"},
                 new Module {
                     ID = "ImarisReaderMicroManager",
-                    Name = "Micro-Manager Image5D file reader",
+                    Name = "Micro-Manager Image5D",
                     Product = "File Reader",
                     Description = "Supported extensions: *.tif, *.tiff, *.txt"},
                 new Module {
                     ID = "ImarisReaderNikon",
-                    Name = "Nikon Image Cytometry Standard and ND2 file reader",
+                    Name = "Nikon Image Cytometry Standard and ND2",
                     Product = "File Reader", 
                     Description = "Supported extensions: *.ics, *.ids, *.nd2"},
                 new Module {
                     ID = "ImarisReaderOlympus",
-                    Name = "Olympus CellR, Fluoview OIB, OIF, TIFF file reader",
+                    Name = "Olympus CellR, Fluoview OIB, OIF, TIFF",
                     Product = "File Reader",
                     Description = "Supported extensions: *.tif, *.tiff, *.oib, *.oif"},
                 new Module {
                     ID = "ImarisReaderOME",
-                    Name = "Open Microscopy Environment TIFF and XML file reader",
+                    Name = "Open Microscopy Environment TIFF and XML",
                     Product = "File Reader",
                     Description = "Supported extensions: *.tif, *.tiff, *.ome"},
                 new Module {
                     ID = "ImarisReaderPerkinElmerInc",
-                    Name = "Perkin Elmer Improvision Openlab LIFF (series), RAW and UltraView file reader",
+                    Name = "Perkin Elmer Improvision Openlab LIFF (series), RAW and UltraView",
                     Product = "File Reader",
                     Description = "Supported extensions: *.liff, *.raw, *.tim, *.zpo"},
                 new Module {
                     ID = "ImarisReaderPrairie",
-                    Name = "Prairie Technologies View file reader",
+                    Name = "Prairie Technologies View",
                     Product = "File Reader",
                     Description = "Supported extensions: *.xml, *.cfg, *.tif, *.tiff"},
                 new Module {
                     ID = "ImarisReaderTILL",
-                    Name = "TILL Photonics TILLvisION file reader",
+                    Name = "TILL Photonics TILLvisION",
                     Product = "File Reader",
                     Description = "Supported extensions: *.rbinf"},
                 new Module {
                     ID = "ImarisReaderUniversalImaging",
-                    Name = "",
+                    Name = "???",
                     Product = "File Reader",
-                    Description = ""},
+                    Description = "Supported extensions: *.???"},
                 new Module {
                     ID = "ImarisReaderZeiss",
-                    Name = "Zeiss AxioVision, CZI, LSM 310, 410, 510, 710 file reader",
+                    Name = "Zeiss AxioVision, CZI, LSM 310, 410, 510, 710",
                     Product = "File Reader",
                     Description = "Supported extensions: *.zvi, *.czi, *.lsm, *.tif, *.tiff"},
                 new Module {
@@ -323,27 +367,7 @@ namespace ImarisSelectorLib
                     ID = "ImarisStatistics",
                     Name = "Imaris Statistics",
                     Product = "Imaris Measurement Pro",
-                    Description = "Part of Imaris Measurement Pro"},
-                new Module {
-                    ID = "ImarisSurpass",
-                    Name = "Imaris Surpass",
-                    Product = "Imaris",
-                    Description = "Part of Imaris base"},
-                new Module {
-                    ID = "ImarisSurpassBase",
-                    Name = "Imaris Surpass Base",
-                    Product = "Imaris",
-                    Description = "Part of Imaris base"},
-                new Module {
-                    ID = "ImarisTime",
-                    Name = "Imaris Time",
-                    Product = "Imaris",
-                    Description = "Part of Imaris base"},
-                new Module {
-                    ID = "ImarisTopography",
-                    Name = "ImarisTopography",
-                    Product = "Imaris",
-                    Description = "Part of Imaris base"},
+                    Description = ""},
                 new Module {
                     ID = "ImarisTrack",
                     Name = "Imaris Track",
@@ -353,7 +377,7 @@ namespace ImarisSelectorLib
                     ID = "ImarisVantage",
                     Name = "Imaris Vantage",
                     Product = "Imaris Vantage",
-                    Description = "Part of Imaris Vantage"}
+                    Description = ""}
             };
 
             // This is a catalog of the know Imaris products (stored in a Dictionary)

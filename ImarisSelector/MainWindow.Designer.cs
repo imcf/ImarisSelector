@@ -38,6 +38,7 @@
             this.buttonHelp = new System.Windows.Forms.Button();
             this.buttonAbout = new System.Windows.Forms.Button();
             this.buttonExport = new System.Windows.Forms.Button();
+            this.labelLicenseMoreDescription = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // checkedListBoxLicenses
@@ -90,7 +91,7 @@
             // labelLicenseDescription
             // 
             this.labelLicenseDescription.AutoSize = true;
-            this.labelLicenseDescription.Location = new System.Drawing.Point(12, 353);
+            this.labelLicenseDescription.Location = new System.Drawing.Point(12, 355);
             this.labelLicenseDescription.Name = "labelLicenseDescription";
             this.labelLicenseDescription.Size = new System.Drawing.Size(0, 13);
             this.labelLicenseDescription.TabIndex = 4;
@@ -134,11 +135,20 @@
             this.buttonExport.UseVisualStyleBackColor = true;
             this.buttonExport.Click += new System.EventHandler(this.buttonExport_Click);
             // 
+            // labelLicenseMoreDescription
+            // 
+            this.labelLicenseMoreDescription.AutoSize = true;
+            this.labelLicenseMoreDescription.Location = new System.Drawing.Point(12, 379);
+            this.labelLicenseMoreDescription.Name = "labelLicenseMoreDescription";
+            this.labelLicenseMoreDescription.Size = new System.Drawing.Size(0, 13);
+            this.labelLicenseMoreDescription.TabIndex = 9;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 461);
+            this.Controls.Add(this.labelLicenseMoreDescription);
             this.Controls.Add(this.buttonExport);
             this.Controls.Add(this.buttonAbout);
             this.Controls.Add(this.buttonHelp);
@@ -169,5 +179,6 @@
         private System.Windows.Forms.Button buttonHelp;
         private System.Windows.Forms.Button buttonAbout;
         private System.Windows.Forms.Button buttonExport;
+        private System.Windows.Forms.Label labelLicenseMoreDescription;
     }
 }

@@ -106,12 +106,16 @@ namespace ImarisSelector
                 // Update the product name and description fields
                 labelLicenseName.Text = itemName;
                 labelLicenseDescription.Text = m_Manager.GetProductDescription(itemName);
+                labelLicenseMoreDescription.Text = "";
             }
             else
             {
                 // Update the module name and description fields
-                labelLicenseName.Text = m_Manager.GetProductForModule(itemName); ;
-                labelLicenseDescription.Text = m_Manager.GetModuleDescription(itemName);
+                labelLicenseName.Text = m_Manager.GetModuleName(itemName);
+                labelLicenseDescription.Text = 
+                    m_Manager.GetProductDescription(m_Manager.GetProductForModule(itemName));
+                labelLicenseMoreDescription.Text = 
+                    m_Manager.GetModuleDescription(itemName);
             }
         }
 
@@ -269,8 +273,11 @@ namespace ImarisSelector
         /// <param name="e"></param>
         private void buttonHelp_Click(object sender, EventArgs e)
         {
-            // Display version and copyright information
-            MessageBox.Show("Will follow.",
+            // Display short usage help
+            MessageBox.Show(
+                "Enable and/or disable the set of products you want to use in current\n" +
+                "Imaris session. You can switch to the \"By module\" view for more\n" +
+                "granularity in your selection.",
                 "ImarisSelector -- Help",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -283,7 +290,7 @@ namespace ImarisSelector
         private void buttonAbout_Click(object sender, EventArgs e)
         {
             // Display version and copyright information
-            MessageBox.Show("ImarisSelector v" + GetVersion() + "\n\n" +
+            MessageBox.Show("ImarisSelector v" + GetVersion() + " (preview release)\n\n" +
                 "Aaron Ponti\n" +
                 "Single-Cell Facility\n" +
                 "Department of Biosystems Science and Engineering\n" +

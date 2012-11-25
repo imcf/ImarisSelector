@@ -117,7 +117,7 @@ namespace ImarisSelectorAdmin
         /// <param name="e"></param>
         private void buttonHelp_Click(object sender, EventArgs e)
         {
-            // Display version and copyright information
+            // Display short usage help
             MessageBox.Show("The administrator backend of ImarisSelector lets you choose\n" +
                 "the Imaris executable to manage.\n\n" +
                 "Click on the button to browse for the Imaris.exe file of choice.",
@@ -144,7 +144,7 @@ namespace ImarisSelectorAdmin
         private void buttonAbout_Click(object sender, EventArgs e)
         {
             // Display version and copyright information
-            MessageBox.Show("ImarisSelector :: Admin v" + GetVersion() + "\n\n" +
+            MessageBox.Show("ImarisSelector :: Admin v" + GetVersion() + " (preview release)\n\n" +
                 "Aaron Ponti\n" +
                 "Single-Cell Facility\n" +
                 "Department of Biosystems Science and Engineering\n" +

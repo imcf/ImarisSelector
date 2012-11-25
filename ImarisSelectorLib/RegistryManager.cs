@@ -251,6 +251,15 @@ namespace ImarisSelectorLib
         }
 
         /// <summary>
+        /// Returns the human-readable name for a given module.
+        /// </summary>
+        /// <returns>Module name.</returns>
+        public String GetModuleName(String moduleName)
+        {
+            return this.m_ModuleCatalog.GetModuleName(moduleName);
+        }
+
+        /// <summary>
         /// Returns the description for a given module.
         /// </summary>
         /// <returns>Module description.</returns>
