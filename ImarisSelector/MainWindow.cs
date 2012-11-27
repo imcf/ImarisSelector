@@ -14,19 +14,14 @@ namespace ImarisSelector
     public partial class MainWindow : Form
     {
         /// <summary>
+        /// Settings.
+        /// </summary>
+        private Settings m_Settings;
+
+        /// <summary>
         /// Protected RegistryManager instance.
         /// </summary>
         protected RegistryManager m_Manager;
-
-        /// <summary>
-        /// Imaris version needed to find the correct module keys in the registry.
-        /// </summary>
-        protected String m_ImarisVersion;
- 
-        /// <summary>
-        /// Full path to the Imaris executable.
-        /// </summary>
-        protected String m_ImarisPath;
 
         /// <summary>
         /// Dictionary of Imaris product names and state.
@@ -39,12 +34,8 @@ namespace ImarisSelector
         public MainWindow()
         {
             // Get the application settings
-            String ImarisVersionFromSettings = "";
-            String ImarisPathFromSettings = "";
-            Dictionary<String, bool> ImarisProductsFromSettings = new Dictionary<String, bool>(); 
-
-            if (!ApplicationSettings.read(out ImarisVersionFromSettings, out ImarisPathFromSettings,
-                out ImarisProductsFromSettings))
+            this.m_Settings = SettingsManager.read();
+            if (!this.m_Settings.isValid)
             {
                 // Inform the user
                 MessageBox.Show("ImarisSelector was not configured on this machine!\n" +
@@ -56,13 +47,8 @@ namespace ImarisSelector
                 Environment.Exit(1);
             }
 
-            // Store the loaded entries
-            this.m_ImarisVersion = ImarisVersionFromSettings;
-            this.m_ImarisPath = ImarisPathFromSettings;
-            this.m_ImarisProducts = new Dictionary<String, bool>(ImarisProductsFromSettings);
-
             // Instantiate the registry manager
-            this.m_Manager = new RegistryManager(this.m_ImarisVersion);
+            this.m_Manager = new RegistryManager(this.m_Settings.ImarisVersion);
 
             // Initialize the window components
             InitializeComponent();
@@ -205,7 +191,7 @@ namespace ImarisSelector
         private void StartImaris()
         {
             // Get process start info for Imaris
-            ProcessStartInfo startInfo = new ProcessStartInfo(this.m_ImarisPath);
+            ProcessStartInfo startInfo = new ProcessStartInfo(this.m_Settings.ImarisPath);
 
             // Try launching the application
             try

@@ -5,25 +5,57 @@ using System.Collections.Generic;
 namespace ImarisSelectorLib
 {
     /// <summary>
+    /// Simple class to hold the settings
+    /// </summary>
+    public class Settings
+    {
+        /// <summary>
+        /// Imaris version in the form "Imaris x64 7.6" (no patch version).
+        /// </summary>
+        public String ImarisVersion { get; set; }
+
+        /// <summary>
+        /// Full path of the Imaris executable.
+        /// </summary>
+        public String ImarisPath { get; set; }
+
+        /// <summary>
+        /// List of product names with their enabled state.
+        /// </summary>
+        public Dictionary<String, bool> ProductsWithEnabledState { get; set; }
+
+        /// <summary>
+        /// True if the Settings is valid (i.e. all fields are defined and valid).
+        /// </summary>
+        public bool isValid { get; set; }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public Settings()
+        {
+            // Set defaults
+            ImarisVersion = "";
+            ImarisPath = "";
+            ProductsWithEnabledState = new Dictionary<String, bool>();
+            isValid = false;
+        }
+    }
+
+    /// <summary>
     /// Static class to manage the ImarisSelector settings.
     /// </summary>
-    public static class ApplicationSettings
+    public static class SettingsManager
     {
         /// <summary>
         /// Get the ImarisSelector settings from the settings file.
         /// </summary>
-        public static bool read(out String ImarisVersion, out String ImarisPath,
-            out Dictionary<String, bool> ImarisProducts)
+        public static Settings read()
         {
-            // Initialize output parameters
-            ImarisVersion = "";
-            ImarisPath = "";
-            ImarisProducts = new Dictionary<String, bool>();
+            // Initialize output
+            Settings settings = new Settings();
 
             // Does the settings file exist?
-            String ImarisVersionFromFile = "";
-            String ImarisPathFromFile = "";
-            Dictionary<String, bool> ImarisProductStates = new Dictionary<String, bool>();
             if (File.Exists(settingsFullFileName()))
             {
                 // Read the settings file
@@ -48,50 +80,34 @@ namespace ImarisSelectorLib
                         }
                         else if (components[0].Equals("ImarisVersion"))
                         {
-                            ImarisVersionFromFile = components[1];
+                            settings.ImarisVersion = components[1];
                         }
                         else if (components[0].Equals("ImarisPath"))
                         {
-                            ImarisPathFromFile = components[1];
+                            settings.ImarisPath = components[1];
                         }
                         else
                         {
-                            if (components[1].Equals("true"))
-                            {
-                                ImarisProductStates.Add(components[0], true);
-                            }
-                            else
-                            {
-                                ImarisProductStates.Add(components[0], false);
-                            }
+                            settings.ProductsWithEnabledState.Add(components[0], components[1].Equals("true"));
                         }
                     }
                     file.Close();
                 }
             }
-            
+
             // Now check
-            if (ImarisVersionFromFile.Equals(""))
+            if (!settings.ImarisVersion.Equals("") && !settings.ImarisPath.Equals("") &&
+                settings.ProductsWithEnabledState.Count > 0)
             {
-                return false;
+                settings.isValid = true;
             }
-            if (ImarisPathFromFile.Equals(""))
+            else
             {
-                return false;
-            }
-            if (ImarisProductStates.Count == 0)
-            {
-                return false;
+                settings.isValid = false;
             }
 
-            // Ready to return the values
-            ImarisVersion = ImarisVersionFromFile;
-            ImarisPath = ImarisPathFromFile;
-            ImarisProducts = new Dictionary<String, bool>(ImarisProductStates);
-
-
-            // Success
-            return true;
+            // Return the settings
+            return settings;
         }
 
         /// <summary>
@@ -102,7 +118,7 @@ namespace ImarisSelectorLib
         /// <param name="ProductsWithStates">Dictionary of product names with their states.</param>
 
         /// <returns></returns>
-        public static bool write(String ImarisVersion, String ImarisPath, Dictionary<String, bool> ProductsWithStates)
+        public static bool write(Settings settings)
         {
             // Make sure the settings directory exists
             CreateSettingsDirIfNeeded(SettingsDirectoryName());
@@ -112,9 +128,9 @@ namespace ImarisSelectorLib
             if (file != null)
             {
                 file.WriteLine("FileVersion=ImarisSelector Settings File version 1");
-                file.WriteLine("ImarisVersion=" + ImarisVersion);
-                file.WriteLine("ImarisPath=" + ImarisPath);
-                foreach (KeyValuePair<String, bool> entry in ProductsWithStates)
+                file.WriteLine("ImarisVersion=" + settings.ImarisVersion);
+                file.WriteLine("ImarisPath=" + settings.ImarisPath);
+                foreach (KeyValuePair<String, bool> entry in settings.ProductsWithEnabledState)
                 {
                     String state = "false";
                     if (entry.Value == true)
@@ -150,7 +166,7 @@ namespace ImarisSelectorLib
             return commonAppData + @"\ImarisSelector\";
         }
 
-        
+
         /// <summary>
         /// Returns the setting file name with full path.
         /// </summary>
