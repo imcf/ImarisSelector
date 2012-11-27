@@ -18,33 +18,16 @@ namespace ImarisSelectorAdmin
         /// </summary>
         private Settings m_Settings;
         
-        ///// <summary>
-        ///// Full path of the Imaris executable.
-        ///// </summary>
-        //private String m_ImarisPath;
-
-        ///// <summary>
-        ///// Imaris version in the form "Imaris x64 7.6" (no patch version).
-        ///// </summary>
-        //private String m_ImarisVersion;
-
         /// <summary>
         /// Dictionary of (name, description) for all known products.
         /// </summary>
-        private Dictionary<String, String> m_UnfilteredKnownProducts;
+        //private Dictionary<String, String> m_AllProductsWithState;
 
         /// <summary>
         /// Constructor.
         /// </summary>
         public MainWindow()
         {
-            // Intialize properties
-//            this.m_ImarisVersion = "";
-//            this.m_ImarisPath = "";
-
-            // Initialize the Module Manager
-            this.m_UnfilteredKnownProducts = new ModuleCatalog().GetAllKnownProducts();
-
             // Initialize the UI
             InitializeComponent();
 
@@ -59,7 +42,8 @@ namespace ImarisSelectorAdmin
                 buttonImarisPath.Text = this.m_Settings.ImarisPath;
 
                 // Fill in the list of products
-                foreach (String productName in this.m_UnfilteredKnownProducts.Keys)
+                checkedListBoxProducts.Items.Clear();
+                foreach (String productName in this.m_Settings.ProductsWithEnabledState.Keys)
                 {
                     bool state;
                     if (this.m_Settings.ProductsWithEnabledState.ContainsKey(productName))
@@ -81,6 +65,22 @@ namespace ImarisSelectorAdmin
                 // Enable save button
                 this.buttonSave.Enabled = true;
             }
+            else
+            {
+                // No settings found
+                
+                // Add all products and activate them
+                Dictionary<String, String> productCatalog = 
+                    new ModuleManager(this.m_Settings).GetProductCatalog();
+                checkedListBoxProducts.Items.Clear();
+                foreach (String productName in productCatalog.Keys)
+                {
+                    this.m_Settings.ProductsWithEnabledState.Add(productName, true);
+                    checkedListBoxProducts.Items.Add(productName, true);
+                }
+
+            }
+
         }
 
         /// <summary>
@@ -212,7 +212,9 @@ namespace ImarisSelectorAdmin
             String productName = (String)checkedListBoxProducts.SelectedItem;
 
             String descr;
-            if (!this.m_UnfilteredKnownProducts.TryGetValue(productName, out descr))
+            Dictionary<String, String> productCatalog = 
+                new ModuleManager(this.m_Settings).GetProductCatalog();
+            if (!productCatalog.TryGetValue(productName, out descr))
             {
                 descr = "Unknown module.";
             }

@@ -11,6 +11,8 @@ namespace ImarisSelectorLib
 {
     /// <summary>
     /// Class for managing registry keys associated to Imaris modules and their license state.
+    /// All module and product handling from the client side should be performed through the public
+    /// ModuleManager class (which in turns uses RegistryManager).
     /// </summary>
     public class RegistryManager
     {
@@ -18,9 +20,8 @@ namespace ImarisSelectorLib
         private String m_UserSID;
         private String m_ImarisVersionString;
         private List<String> m_InstalledModuleList;
-        private List<String> m_InstalledProductList;
         
-        private ModuleCatalog m_ModuleCatalog;
+        //private ModuleManager m_ModuleCatalog;
 
         /// <summary>
         /// Constructor.
@@ -29,24 +30,14 @@ namespace ImarisSelectorLib
         public RegistryManager(String ver)
         {
             // Initialize the module and product catalogs
-            this.m_ModuleCatalog = new ModuleCatalog();
+            //this.m_ModuleCatalog = new ModuleManager();
 
             // Set user SID and Imaris version for use by other methods
             this.m_UserSID = WindowsIdentity.GetCurrent().User.ToString();
             this.m_ImarisVersionString = ver;
 
             // Get and store the licenses from the registry
-            GetInstalledModuleList();
-            GetInstalledProductList();
-        }
-
-        /// <summary>
-        /// Returns true if license information could be found in the registry.
-        /// </summary>
-        /// <returns>True if license information could be found, false otherwise.</returns>
-        public bool LicenseInformationFound()
-        {
-            return (this.m_InstalledModuleList.Count() > 0);
+            ScanForInstalledModules();
         }
 
         /// <summary>
@@ -88,47 +79,6 @@ namespace ImarisSelectorLib
         }
 
         /// <summary>
-        /// Disable all licenses in the registry.
-        /// TODO: Decide what to do with ImarisBase.
-        /// </summary>
-        public void DisableModules(List<String> moduleNames)
-        {
-            // Iterate over modules
-            foreach (String moduleName in moduleNames)
-            {
-                // Disable the module
-                DisableModule(moduleName);
-
-            }
-        }
-
-        /// <summary>
-        /// Disable all licenses in the registry.
-        /// // TODO: Decide what to do with ImarisBase.
-        /// </summary>
-        public void DisableAllModules()
-        {
-            // Get all licenses
-            List<String> allModuleNames = GetAllModuleNames();
-
-            // Diable all modules
-            DisableModules(allModuleNames);
-        }
-
-        /// <summary>
-        /// Disable modules belonging to specific products.
-        /// </summary>
-        public void DisableProducts(List<String> productNames)
-        {
-            // For each of the products get the corresponding modules
-            foreach (String product in productNames)
-            {
-                List<String> modules = this.m_ModuleCatalog.GetModulesForProduct(product);
-                DisableModules(modules);
-            }
-        }
-
-        /// <summary>
         /// Enable module of given name.
         /// </summary>
         /// <param name="moduleName">Name of the module to be enabled.</param>
@@ -161,20 +111,6 @@ namespace ImarisSelectorLib
                 // Enable the license
                 EnableModule(moduleName);
             }
-
-        }
-
-        /// <summary>
-        /// Enable modules belonging to specific products.
-        /// </summary>
-        public void EnableProducts(List<String> productNames)
-        {
-            // For each of the products get the corresponding modules
-            foreach (String product in productNames)
-            {
-                List<String> modules = this.m_ModuleCatalog.GetModulesForProduct(product);
-                EnableModules(modules);
-            }
         }
 
         /// <summary>
@@ -186,103 +122,12 @@ namespace ImarisSelectorLib
             return this.m_InstalledModuleList;
         }
 
-        /// <summary>
-        /// Get selected module names for simple view.
-        /// </summary>
-        /// <returns></returns>
-        public List<String> GetProductNamesToDisable()
-        {
-            List<String> products = this.m_InstalledProductList;
-            products.Remove("Imaris");
-            products.Remove("File Reader");
-            return products;
-        }
-
-        /// <summary>
-        /// Get selected module names for simple view.
-        /// </summary>
-        /// <returns></returns>
-        public List<String> GetProductNames()
-        {
-            return this.m_InstalledProductList;
-        }
-
-        /// <summary>
-        /// Returns true if the product is enabled. It at least one of the
-        /// modules in a product are enabled, the product is enabled as well.
-        /// </summary>
-        /// <param name="productName">Name of the module.</param>
-        /// <returns>Product name.</returns>
-        public bool IsProductEnabled(String productName)
-        {
-            // Get modules for the product
-            List<String> moduleNames =
-                this.m_ModuleCatalog.GetModulesForProduct(productName);
-
-            // Check the module states
-            foreach (String module in moduleNames)
-            {
-                if (IsModuleEnabled(module))
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// Returns name of the product to which the module belongs.
-        /// </summary>
-        /// <param name="moduleName">Name of the module.</param>
-        /// <returns>Product name.</returns>
-        public String GetProductForModule(String moduleName)
-        {
-            return this.m_ModuleCatalog.GetProductForModule(moduleName);
-        }
-
-
-        /// <summary>
-        /// Returns the description for a given product.
-        /// </summary>
-        /// <returns>Product description.</returns>
-        public String GetProductDescription(String productName)
-        {
-            return this.m_ModuleCatalog.GetProductDescription(productName);
-        }
-
-        /// <summary>
-        /// Returns the human-readable name for a given module.
-        /// </summary>
-        /// <returns>Module name.</returns>
-        public String GetModuleName(String moduleName)
-        {
-            return this.m_ModuleCatalog.GetModuleName(moduleName);
-        }
-
-        /// <summary>
-        /// Returns the description for a given module.
-        /// </summary>
-        /// <returns>Module description.</returns>
-        public String GetModuleDescription(String moduleName)
-        {
-            return this.m_ModuleCatalog.GetModuleDescription(moduleName);
-        }
-
-        /// <summary>
-        /// Returns the modules that belong to a given product.
-        /// </summary>
-        /// <returns>List of modules.</returns>
-        public List<String> GetModulesForProduct(String productName)
-        {
-            return this.m_ModuleCatalog.GetModulesForProduct(productName);
-        }
-
         //// PRIVATE METHODS 
 
         /// <summary>
         /// Gets and stores all licenses from the registry (with the exception of ImarisBase).
         /// </summary>
-        private void GetInstalledModuleList()
+        private void ScanForInstalledModules()
         {
             // Initialize List
             this.m_InstalledModuleList = new List<String>();
@@ -309,14 +154,7 @@ namespace ImarisSelectorLib
 
         }
 
-        /// <summary>
-        /// Stores a subset of all module names to be displayed in the simple view
-        /// </summary>
-        private void GetInstalledProductList()
-        {            
-            // Get the list of products
-            this.m_InstalledProductList = this.m_ModuleCatalog.GetProductsForModules(this.m_InstalledModuleList);
-        }
+
 
         /// <summary>
         /// Sets the license state for a given module.

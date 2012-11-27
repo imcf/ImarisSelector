@@ -21,7 +21,9 @@ namespace ImarisSelector
         /// <summary>
         /// Protected RegistryManager instance.
         /// </summary>
-        protected RegistryManager m_Manager;
+        ///protected RegistryManager m_Manager;
+
+        protected ModuleManager m_ModuleManager;
 
         /// <summary>
         /// Dictionary of Imaris product names and state.
@@ -48,7 +50,8 @@ namespace ImarisSelector
             }
 
             // Instantiate the registry manager
-            this.m_Manager = new RegistryManager(this.m_Settings.ImarisVersion);
+            ///this.m_Manager = new RegistryManager(this.m_Settings.ImarisVersion);
+            this.m_ModuleManager = new ModuleManager(this.m_Settings);
 
             // Initialize the window components
             InitializeComponent();
@@ -69,17 +72,17 @@ namespace ImarisSelector
             // If no license information is found in the registry, it most likely
             // means that Imaris has never been started by this user. So, we just
             // go ahead and launch it.
-            if (!m_Manager.LicenseInformationFound())
+            if (!this.m_ModuleManager.LicenseInformationFound())
             {
                 // This call will start Imaris and close ImarisSelector
                 StartImaris();
             }
 
             // Initially disable all modules
-            this.m_Manager.DisableAllModules();
+            this.m_ModuleManager.DisableAllModules();
 
             // But enable "Imaris" and "File Reader"
-            this.m_Manager.EnableProducts(new List<String> {"Imaris", "File Reader"});
+            this.m_ModuleManager.EnableProducts(new List<String> {"Imaris", "File Reader"});
 
             // Fill the checkedListBox
             FillProductOrModuleList();
@@ -100,17 +103,17 @@ namespace ImarisSelector
             {
                 // Update the product name and description fields
                 labelLicenseName.Text = itemName;
-                labelLicenseDescription.Text = m_Manager.GetProductDescription(itemName);
+                labelLicenseDescription.Text = this.m_ModuleManager.GetProductDescription(itemName);
                 labelLicenseMoreDescription.Text = "";
             }
             else
             {
                 // Update the module name and description fields
-                labelLicenseName.Text = m_Manager.GetModuleName(itemName);
+                labelLicenseName.Text = this.m_ModuleManager.GetModuleName(itemName);
                 labelLicenseDescription.Text = 
-                    m_Manager.GetProductDescription(m_Manager.GetProductForModule(itemName));
+                    this.m_ModuleManager.GetProductDescription(this.m_ModuleManager.GetProductForModule(itemName));
                 labelLicenseMoreDescription.Text = 
-                    m_Manager.GetModuleDescription(itemName);
+                    this.m_ModuleManager.GetModuleDescription(itemName);
             }
         }
 
@@ -130,12 +133,12 @@ namespace ImarisSelector
                 if (isProductView())
                 {
                     // Enable the module
-                    m_Manager.EnableModules(m_Manager.GetModulesForProduct(itemName));
+                    this.m_ModuleManager.EnableModules(this.m_ModuleManager.GetModulesForProduct(itemName));
                 }
                 else
                 {
                     // Enable the module
-                    m_Manager.EnableModule(itemName);
+                    this.m_ModuleManager.EnableModule(itemName);
                 }
             }
             else
@@ -143,12 +146,12 @@ namespace ImarisSelector
                 if (radioSelByProduct.Checked)
                 {
                     // Enable the module
-                    m_Manager.DisableModules(m_Manager.GetModulesForProduct(itemName));
+                    this.m_ModuleManager.DisableModules(this.m_ModuleManager.GetModulesForProduct(itemName));
                 }
                 else
                 {
                     // Enable the module
-                    m_Manager.DisableModule(itemName);
+                    this.m_ModuleManager.DisableModule(itemName);
                 }
             }
         }
@@ -227,14 +230,14 @@ namespace ImarisSelector
             List<String> moduleNames;
 
             // Fill the checkedListBox with either the selected or the 
-            // complete list, depending on the datio button values
+            // complete list, depending on the ratio button values
             if (isProductView())
             {
-                moduleNames = m_Manager.GetProductNames();
+                moduleNames = this.m_ModuleManager.GetProductNames();
             }
             else
             {
-                moduleNames = m_Manager.GetAllModuleNames();
+                moduleNames = this.m_ModuleManager.GetAllModuleNames();
             }
 
             // Remove current items
@@ -246,11 +249,11 @@ namespace ImarisSelector
             {
                 if (isProductView())
                 {
-                    isEnabled = m_Manager.IsProductEnabled(moduleName);
+                    isEnabled = this.m_ModuleManager.IsProductEnabled(moduleName);
                 }
                 else
                 {
-                    isEnabled = m_Manager.IsModuleEnabled(moduleName);
+                    isEnabled = this.m_ModuleManager.IsModuleEnabled(moduleName);
                 }
                 checkedListBoxLicenses.Items.Add(moduleName, isEnabled);
             }
@@ -326,13 +329,13 @@ namespace ImarisSelector
                 StreamWriter file = new StreamWriter(saveFileDialog.FileName);
                 if (file != null)
                 {
-                    foreach (String moduleName in this.m_Manager.GetAllModuleNames())
+                    foreach (String moduleName in this.m_ModuleManager.GetAllModuleNames())
                     {
                         file.WriteLine(moduleName + "\n");
                     }
                     file.WriteLine();
                     file.WriteLine("{0} modules exported.", 
-                        m_Manager.GetAllModuleNames().Count);
+                        this.m_ModuleManager.GetAllModuleNames().Count);
                     file.Close();
                 }
             }

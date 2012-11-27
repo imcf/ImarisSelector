@@ -35,25 +35,42 @@ namespace ImarisSelectorLib
     /// <summary>
     /// A class to manage a catalog of modules and products. 
     /// </summary>
-    public class ModuleCatalog
+    public class ModuleManager
     {
         private IEnumerable<Module> m_ModuleCatalog;
         private Dictionary<String, String> m_ProductCatalog;
 
+        //private Settings settings;
+
+        private RegistryManager m_RegistryManager;
+
         /// <summary>
         /// Constructor.
         /// </summary>
-        public ModuleCatalog()
+        public ModuleManager(Settings settings)
         {
             // Build the catalog
             Build();
+
+            // Initialize the Registry Manager
+            this.m_RegistryManager = new RegistryManager(settings.ImarisVersion);
+
+        }
+
+        /// <summary>
+        /// Returns true if license information could be found in the registry.
+        /// </summary>
+        /// <returns>True if license information could be found, false otherwise.</returns>
+        public bool LicenseInformationFound()
+        {
+            return (this.m_RegistryManager.GetAllModuleNames().Count > 0);
         }
 
         /// <summary>
         /// Returns a dictionary of (name, description) for all known product names.
         /// </summary>
         /// <returns>Name and description for all known Imaris products.</returns>
-        public Dictionary<String, String> GetAllKnownProducts()
+        public Dictionary<String, String> GetProductCatalog()
         {
             return this.m_ProductCatalog;
         }
@@ -208,7 +225,167 @@ namespace ImarisSelectorLib
 
             return moduleNames;
         }
-        
+
+        ///// <summary>
+        ///// Disable all modules.
+        ///// // TODO: Decide what to do with ImarisBase.
+        ///// </summary>
+        //public void DisableAllModules()
+        //{
+        //    this.m_RegistryManager.DisableAllModules();
+        //}
+
+        /// <summary>
+        /// Enable modules belonging to specific products.
+        /// </summary>
+        public void EnableProducts(List<String> productNames)
+        {
+            // For each of the products get the corresponding modules
+            foreach (String product in productNames)
+            {
+                List<String> modules = GetModulesForProduct(product);
+                this.m_RegistryManager.EnableModules(modules);
+            }
+        }
+
+        /// <summary>
+        /// Enable all licenses in the registry.
+        /// </summary>
+        public void EnableModules(List<String> moduleNames)
+        {
+            // Iterate over licenses
+            foreach (String moduleName in moduleNames)
+            {
+                // Enable the license
+                EnableModule(moduleName);
+            }
+        }
+
+        /// <summary>
+        /// Enable module of given name.
+        /// </summary>
+        /// <param name="moduleName">Name of the module to be enabled.</param>
+        public void EnableModule(String moduleName)
+        {
+            this.m_RegistryManager.EnableModule(moduleName);
+        }
+
+        /// <summary>
+        /// Disable all licenses in the registry.
+        /// TODO: Decide what to do with ImarisBase.
+        /// </summary>
+        public void DisableModules(List<String> moduleNames)
+        {
+            // Iterate over modules
+            foreach (String moduleName in moduleNames)
+            {
+                // Disable the module
+                DisableModule(moduleName);
+
+            }
+        }
+
+        /// <summary>
+        /// Disable all licenses in the registry.
+        /// // TODO: Decide what to do with ImarisBase.
+        /// </summary>
+        public void DisableAllModules()
+        {
+            // Get all licenses
+            List<String> allModuleNames = GetAllModuleNames();
+
+            // Diable all modules
+            DisableModules(allModuleNames);
+        }
+
+        /// <summary>
+        /// Disable module of given name.
+        /// </summary>
+        /// <param name="moduleName">Name of the module to be disabled.</param>
+        public void DisableModule(String moduleName)
+        {
+            this.m_RegistryManager.DisableModule(moduleName);
+        }
+
+        /// <summary>
+        /// Disable modules belonging to specific products.
+        /// </summary>
+        public void DisableProducts(List<String> productNames)
+        {
+            // For each of the products get the corresponding modules
+            foreach (String product in productNames)
+            {
+                List<String> modules = GetModulesForProduct(product);
+                DisableModules(modules);
+            }
+        }
+
+        /// <summary>
+        /// Get list of products.
+        /// </summary>
+        /// <returns>List of product names.</returns>
+        public List<String> GetProductNames()
+        {
+            return new List<string>(this.m_ProductCatalog.Keys);
+        }
+
+        /// <summary>
+        /// Get all module names.
+        /// </summary>
+        /// <returns>A List of all module names </returns>
+        public List<String> GetAllModuleNames()
+        {
+            return this.m_RegistryManager.GetAllModuleNames();
+        }
+
+        ///// <summary>
+        ///// Disable all licenses in the registry.
+        ///// TODO: Decide what to do with ImarisBase.
+        ///// </summary>
+        //public void DisableModules(List<String> moduleNames)
+        //{
+        //    // Iterate over modules
+        //    foreach (String moduleName in moduleNames)
+        //    {
+        //        // Disable the module
+        //        DisableModule(moduleName);
+
+        //    }
+        //}
+
+        /// <summary>
+        /// Return the state of the license for the selected module.
+        /// </summary>
+        /// <param name="moduleName">Name of the module.</param>
+        /// <returns>"true" if the license is enabled, "false" if it is disabled, 
+        /// and "" if the license could not be found.</returns>
+        public bool IsModuleEnabled(String moduleName)
+        {
+            return this.m_RegistryManager.IsModuleEnabled(moduleName);
+        }
+
+        /// <summary>
+        /// Returns true if the product is enabled. It at least one of the
+        /// modules in a product are enabled, the product is enabled as well.
+        /// </summary>
+        /// <param name="productName">Name of the module.</param>
+        /// <returns>Product name.</returns>
+        public bool IsProductEnabled(String productName)
+        {
+            // Get modules for the product
+            List<String> moduleNames = GetModulesForProduct(productName);
+
+            // Check the module states
+            foreach (String module in moduleNames)
+            {
+                if (this.m_RegistryManager.IsModuleEnabled(module))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         /// <summary>
         /// Build the Module and Product catalogue.
         /// </summary>
