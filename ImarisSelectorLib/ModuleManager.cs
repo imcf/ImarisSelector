@@ -40,7 +40,7 @@ namespace ImarisSelectorLib
         private IEnumerable<Module> m_ModuleCatalog;
         private Dictionary<String, String> m_ProductCatalog;
 
-        //private Settings settings;
+        private Settings m_Settings;
 
         private RegistryManager m_RegistryManager;
 
@@ -50,11 +50,14 @@ namespace ImarisSelectorLib
         /// </summary>
         public ModuleManager(Settings settings)
         {
+            // Store the settings
+            this.m_Settings = settings;
+
             // Build the catalog
             Build();
 
             // Initialize the Registry Manager
-            this.m_RegistryManager = new RegistryManager(settings.ImarisVersion);
+            this.m_RegistryManager = new RegistryManager(this.m_Settings.ImarisVersion);
 
         }
 
@@ -81,9 +84,42 @@ namespace ImarisSelectorLib
         /// </summary>
         /// <returns>List of installed product names.</returns>
         public List<String> GetInstalledProductList()
-        {            
-            // Get the list of products
+        {
+            // Return the list of installed products
             return GetProductsForModules(this.m_RegistryManager.GetInstalledModuleNames());
+        }
+
+        /// <summary>
+        /// Return a list of names for all products that are installed on the machine
+        /// and filtered by the admin selection in ImarisSelectorAdmin.
+        /// </summary>
+        /// <returns>List of installed and filtered product names.</returns>
+        public List<String> GetInstalledAndFilteredProductList()
+        {            
+            // Get the list of installed products
+            List<String> installedProducts =
+                GetProductsForModules(this.m_RegistryManager.GetInstalledModuleNames());
+
+            // Now filter by the admin selections
+            var results =
+                from productName in installedProducts.AsEnumerable()
+                join productWithState in this.m_Settings.ProductsWithEnabledState
+                on productName equals productWithState.Key
+                where productWithState.Value == true
+                orderby productName ascending
+                select new { productName };
+
+            // Now get a list
+            var names = results.Distinct().ToList();
+
+            // Make sure to cast properly
+            List<String> installedAndFilteredProducts = new List<string>();
+            foreach (var name in names)
+            {
+                installedAndFilteredProducts.Add(name.productName.ToString());
+            }
+
+            return installedAndFilteredProducts;
         }
 
         /// <summary>
@@ -238,6 +274,24 @@ namespace ImarisSelectorLib
         }
 
         /// <summary>
+        /// Returns a list of all modules associated to a list of product names.
+        /// </summary>
+        /// <param name="productNames">List of product names.</param>
+        /// <returns>List of module names</returns>
+        public List<String> GetModulesForProducts(List<String> productNames)
+        {
+            List<String> moduleNames = new List<String>();
+
+            foreach (String productName in productNames)
+            {
+                moduleNames.AddRange(GetModulesForProduct(productName));
+            }
+
+            // Return the complete list
+            return moduleNames;
+        }
+
+        /// <summary>
         /// Enable module of given name.
         /// </summary>
         /// <param name="moduleName">Name of the module to be enabled.</param>
@@ -333,6 +387,15 @@ namespace ImarisSelectorLib
                 List<String> modules = GetModulesForProduct(product);
                 DisableModules(modules);
             }
+        }
+
+        /// <summary>
+        /// Get all filtered module names.
+        /// </summary>
+        /// <returns>A List of filtered module names </returns>
+        public List<String> GetFilteredModuleNames()
+        {
+            return GetModulesForProducts(GetInstalledAndFilteredProductList());
         }
 
         /// <summary>
@@ -572,43 +635,43 @@ namespace ImarisSelectorLib
             this.m_ProductCatalog = new Dictionary<String, String>();
             this.m_ProductCatalog.Add(
                 "Imaris",
-                "3D and 4D Real-Time Interactive Image Visualization");
+                "3D and 4D Real-Time Interactive Image Visualization.");
             this.m_ProductCatalog.Add(
                 "Imaris Measurement Pro",
-                "The Analysis and Quantification Engine");
+                "The Analysis and Quantification Engine.");
             this.m_ProductCatalog.Add(
                 "Imaris Track",
-                "Discover the Meaning of Motion");
+                "Discover the Meaning of Motion.");
             this.m_ProductCatalog.Add(
                 "Imaris Coloc",
-                "Isolate, Visualize and Quantify Colocalized Regions");
+                "Isolate, Visualize and Quantify Colocalized Regions.");
             this.m_ProductCatalog.Add(
                 "Imaris Cell",
-                "Analysis and Visualization of intra/inter Cellular Relationships");
+                "Analysis and Visualization of intra/inter Cellular Relationships.");
             this.m_ProductCatalog.Add(
                 "Filament Tracer",
-                "Analysis and Visualization of Filamentous Structures");
+                "Analysis and Visualization of Filamentous Structures.");
             this.m_ProductCatalog.Add(
                 "Imaris Vantage",
-                "Data Plotting (2D to 5D), Interpretation and Mining");
+                "Data Plotting (2D to 5D), Interpretation and Mining.");
             this.m_ProductCatalog.Add(
                 "Imaris XT",
-                "Access to the Open Source Community and XTensions. Freedom to customize");
+                "Access to the Open Source Community and XTensions. Freedom to customize.");
             this.m_ProductCatalog.Add(
                 "Imaris Scene Viewer",
-                "Viewer for Imaris Scenes");
+                "Viewer for Imaris Scenes.");
             this.m_ProductCatalog.Add(
                 "Imaris Batch",
-                "Automated Image Processing");
+                "Automated Image Processing.");
             this.m_ProductCatalog.Add(
                 "AutoAligner",
-                "Image Alignment Made Easy");
+                "Image Alignment Made Easy.");
             this.m_ProductCatalog.Add(
                 "AutoQuant",
-                "Advanced and Fully Featured Image Deconvolution");
+                "Advanced and Fully Featured Image Deconvolution.");
             this.m_ProductCatalog.Add(
                 "File Reader",
-                "Proprietary File Readers");
+                "Proprietary File Readers.");
 
         }
 

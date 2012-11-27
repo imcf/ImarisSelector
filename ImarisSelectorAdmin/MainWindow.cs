@@ -17,11 +17,6 @@ namespace ImarisSelectorAdmin
         /// Application settings
         /// </summary>
         private Settings m_Settings;
-        
-        /// <summary>
-        /// Dictionary of (name, description) for all known products.
-        /// </summary>
-        //private Dictionary<String, String> m_AllProductsWithState;
 
         /// <summary>
         /// Constructor.
@@ -70,7 +65,7 @@ namespace ImarisSelectorAdmin
                 // No settings found
                 
                 // Add all products and activate them
-                List<String> installedProducts = 
+                List<String> installedProducts =
                     new ModuleManager(this.m_Settings).GetInstalledProductList();
                 checkedListBoxProducts.Items.Clear();
                 foreach (String productName in installedProducts)
@@ -165,8 +160,8 @@ namespace ImarisSelectorAdmin
         {
             // Display short usage help
             MessageBox.Show("The administrator backend of ImarisSelector lets you choose\n" +
-                "the Imaris executable to manage.\n\n" +
-                "Click on the button to browse for the Imaris.exe file of choice.",
+                "the Imaris executable to manage and which products to make visible\n" +
+                "to the user in ImarisSelector.\n",
                 "ImarisSelector :: Admin -- Help",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">ImarisSelector
-   &#160;<span id="projectnumber">0.9.0.0</span>
+   &#160;<span id="projectnumber">0.9.5 (preview release)</span>
    </div>
    <div id="projectbrief">ImarisSelector allows picking the module licenses to check out when Imaris starts.</div>
   </td>
@@ -119,6 +119,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a55451bc693792b68722b815ac7af273b"><td class="memItemLeft" align="right" valign="top">List&lt; String &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_imaris_selector_lib_1_1_module_manager.html#a55451bc693792b68722b815ac7af273b">GetInstalledProductList</a> ()</td></tr>
 <tr class="memdesc:a55451bc693792b68722b815ac7af273b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a list of names for all products that are installed on the machine.  <a href="#a55451bc693792b68722b815ac7af273b"></a><br/></td></tr>
 <tr class="separator:a55451bc693792b68722b815ac7af273b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad90341796697b11f63e87095bb8e4e67"><td class="memItemLeft" align="right" valign="top">List&lt; String &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_imaris_selector_lib_1_1_module_manager.html#ad90341796697b11f63e87095bb8e4e67">GetInstalledAndFilteredProductList</a> ()</td></tr>
+<tr class="memdesc:ad90341796697b11f63e87095bb8e4e67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a list of names for all products that are installed on the machine and filtered by the admin selection in <a class="el" href="namespace_imaris_selector_admin.html">ImarisSelectorAdmin</a>.  <a href="#ad90341796697b11f63e87095bb8e4e67"></a><br/></td></tr>
+<tr class="separator:ad90341796697b11f63e87095bb8e4e67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab62b8ce1c1ed7f73d6a0f839effda013"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_imaris_selector_lib_1_1_module_manager.html#ab62b8ce1c1ed7f73d6a0f839effda013">GetProductDescription</a> (String productName)</td></tr>
 <tr class="memdesc:ab62b8ce1c1ed7f73d6a0f839effda013"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the description for product with specific name.  <a href="#ab62b8ce1c1ed7f73d6a0f839effda013"></a><br/></td></tr>
 <tr class="separator:ab62b8ce1c1ed7f73d6a0f839effda013"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -137,6 +140,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a52da36d794e456630762ea271c5bd068"><td class="memItemLeft" align="right" valign="top">List&lt; String &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_imaris_selector_lib_1_1_module_manager.html#a52da36d794e456630762ea271c5bd068">GetModulesForProduct</a> (String productName)</td></tr>
 <tr class="memdesc:a52da36d794e456630762ea271c5bd068"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query the module catalog for input product name and return the modules associated to it  <a href="#a52da36d794e456630762ea271c5bd068"></a><br/></td></tr>
 <tr class="separator:a52da36d794e456630762ea271c5bd068"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55cf88c55e0323aecc0d005e3683e39f"><td class="memItemLeft" align="right" valign="top">List&lt; String &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_imaris_selector_lib_1_1_module_manager.html#a55cf88c55e0323aecc0d005e3683e39f">GetModulesForProducts</a> (List&lt; String &gt; productNames)</td></tr>
+<tr class="memdesc:a55cf88c55e0323aecc0d005e3683e39f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a list of all modules associated to a list of product names.  <a href="#a55cf88c55e0323aecc0d005e3683e39f"></a><br/></td></tr>
+<tr class="separator:a55cf88c55e0323aecc0d005e3683e39f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca66aab57b19712ca2ba1036ef3c49ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_imaris_selector_lib_1_1_module_manager.html#aca66aab57b19712ca2ba1036ef3c49ac">EnableModule</a> (String moduleName)</td></tr>
 <tr class="memdesc:aca66aab57b19712ca2ba1036ef3c49ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable module of given name.  <a href="#aca66aab57b19712ca2ba1036ef3c49ac"></a><br/></td></tr>
 <tr class="separator:aca66aab57b19712ca2ba1036ef3c49ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -161,6 +167,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a430c646151a2e5b2a23ef12b8b494b6f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_imaris_selector_lib_1_1_module_manager.html#a430c646151a2e5b2a23ef12b8b494b6f">DisableProducts</a> (List&lt; String &gt; productNames)</td></tr>
 <tr class="memdesc:a430c646151a2e5b2a23ef12b8b494b6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable modules belonging to specific products.  <a href="#a430c646151a2e5b2a23ef12b8b494b6f"></a><br/></td></tr>
 <tr class="separator:a430c646151a2e5b2a23ef12b8b494b6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f7b8d8ee382a59ce14be5ccfe8166ed"><td class="memItemLeft" align="right" valign="top">List&lt; String &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_imaris_selector_lib_1_1_module_manager.html#a8f7b8d8ee382a59ce14be5ccfe8166ed">GetFilteredModuleNames</a> ()</td></tr>
+<tr class="memdesc:a8f7b8d8ee382a59ce14be5ccfe8166ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get all filtered module names.  <a href="#a8f7b8d8ee382a59ce14be5ccfe8166ed"></a><br/></td></tr>
+<tr class="separator:a8f7b8d8ee382a59ce14be5ccfe8166ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fb68c9795a41ac32a5208960ebd0dfa"><td class="memItemLeft" align="right" valign="top">List&lt; String &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_imaris_selector_lib_1_1_module_manager.html#a8fb68c9795a41ac32a5208960ebd0dfa">GetAllModuleNames</a> ()</td></tr>
 <tr class="memdesc:a8fb68c9795a41ac32a5208960ebd0dfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get all module names.  <a href="#a8fb68c9795a41ac32a5208960ebd0dfa"></a><br/></td></tr>
 <tr class="separator:a8fb68c9795a41ac32a5208960ebd0dfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -393,6 +402,42 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a8f7b8d8ee382a59ce14be5ccfe8166ed"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">List&lt;String&gt; ImarisSelectorLib.ModuleManager.GetFilteredModuleNames </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get all filtered module names. </p>
+<dl class="section return"><dt>Returns</dt><dd>A List of filtered module names </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad90341796697b11f63e87095bb8e4e67"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">List&lt;String&gt; ImarisSelectorLib.ModuleManager.GetInstalledAndFilteredProductList </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return a list of names for all products that are installed on the machine and filtered by the admin selection in <a class="el" href="namespace_imaris_selector_admin.html">ImarisSelectorAdmin</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>List of installed and filtered product names.</dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a55451bc693792b68722b815ac7af273b"></a>
 <div class="memitem">
 <div class="memproto">
@@ -479,6 +524,31 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">productName</td><td>Product name</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>List of module names</dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a55cf88c55e0323aecc0d005e3683e39f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">List&lt;String&gt; ImarisSelectorLib.ModuleManager.GetModulesForProducts </td>
+          <td>(</td>
+          <td class="paramtype">List&lt; String &gt;&#160;</td>
+          <td class="paramname"><em>productNames</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a list of all modules associated to a list of product names. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">productNames</td><td>List of product names.</td></tr>
   </table>
   </dd>
 </dl>
@@ -653,7 +723,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 27 2012 22:14:56 for ImarisSelector by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Nov 27 2012 23:04:23 for ImarisSelector by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.2
 </small></address>

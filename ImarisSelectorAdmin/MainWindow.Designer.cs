@@ -89,6 +89,7 @@
             // 
             // checkedListBoxProducts
             // 
+            this.checkedListBoxProducts.CheckOnClick = true;
             this.checkedListBoxProducts.FormattingEnabled = true;
             this.checkedListBoxProducts.Location = new System.Drawing.Point(11, 115);
             this.checkedListBoxProducts.Name = "checkedListBoxProducts";

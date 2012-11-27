@@ -233,11 +233,11 @@ namespace ImarisSelector
             // complete list, depending on the ratio button values
             if (isProductView())
             {
-                moduleNames = this.m_ModuleManager.GetInstalledProductList();
+                moduleNames = this.m_ModuleManager.GetInstalledAndFilteredProductList();
             }
             else
             {
-                moduleNames = this.m_ModuleManager.GetAllModuleNames();
+                moduleNames = this.m_ModuleManager.GetFilteredModuleNames();
             }
 
             // Remove current items
