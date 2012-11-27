@@ -14,7 +14,7 @@ namespace ImarisSelector
     public partial class MainWindow : Form
     {
         /// <summary>
-        /// Private RegistryManager instance.
+        /// Protected RegistryManager instance.
         /// </summary>
         protected RegistryManager m_Manager;
 
@@ -29,6 +29,11 @@ namespace ImarisSelector
         protected String m_ImarisPath;
 
         /// <summary>
+        /// Dictionary of Imaris product names and state.
+        /// </summary>
+        protected Dictionary<String, bool> m_ImarisProducts;
+
+        /// <summary>
         /// Constructor.
         /// </summary>
         public MainWindow()
@@ -36,8 +41,10 @@ namespace ImarisSelector
             // Get the application settings
             String ImarisVersionFromSettings = "";
             String ImarisPathFromSettings = "";
+            Dictionary<String, bool> ImarisProductsFromSettings = new Dictionary<String, bool>(); 
 
-            if (!ApplicationSettings.read(out ImarisVersionFromSettings, out ImarisPathFromSettings))
+            if (!ApplicationSettings.read(out ImarisVersionFromSettings, out ImarisPathFromSettings,
+                out ImarisProductsFromSettings))
             {
                 // Inform the user
                 MessageBox.Show("ImarisSelector was not configured on this machine!\n" +
@@ -52,6 +59,7 @@ namespace ImarisSelector
             // Store the loaded entries
             this.m_ImarisVersion = ImarisVersionFromSettings;
             this.m_ImarisPath = ImarisPathFromSettings;
+            this.m_ImarisProducts = new Dictionary<String, bool>(ImarisProductsFromSettings);
 
             // Instantiate the registry manager
             this.m_Manager = new RegistryManager(this.m_ImarisVersion);
@@ -62,6 +70,7 @@ namespace ImarisSelector
             // Make window unresizable
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
+
         }
 
         /// <summary>

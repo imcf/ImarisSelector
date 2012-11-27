@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using ImarisSelectorLib;
+using System.Collections.Generic;
 
 namespace ImarisSelectorAdmin
 {
@@ -12,14 +13,34 @@ namespace ImarisSelectorAdmin
     /// </summary>
     public partial class MainWindow : Form
     {
+        /// <summary>
+        /// Full path of the Imaris executable.
+        /// </summary>
         private String m_ImarisPath;
+
+        /// <summary>
+        /// Imaris version in the form "Imaris x64 7.6" (no patch version).
+        /// </summary>
         private String m_ImarisVersion;
+
+        /// <summary>
+        /// Dictionary of (name, description) for all known products.
+        /// </summary>
+        private Dictionary<String, String> m_Products;
 
         /// <summary>
         /// Constructor.
         /// </summary>
         public MainWindow()
         {
+            // Intialize properties
+            this.m_ImarisVersion = "";
+            this.m_ImarisPath = "";
+
+            // Initialize the Module Manager
+            this.m_Products = new ModuleCatalog().GetAllKnownProducts();
+
+            // Initialize the UI
             InitializeComponent();
 
             // Make window unresizable
@@ -27,14 +48,41 @@ namespace ImarisSelectorAdmin
             this.MaximizeBox = false;
 
             // Get the application settings from the settings file.
-            String ImarisVersionFromSettingsFile;
-            String ImarisPathFromSettingsFile;
+            String ImarisVersionFromSettingsFile = "";
+            String ImarisPathFromSettingsFile = "";
+            Dictionary<String, bool> ImarisProductStates = new Dictionary<String, bool>();
             if (ApplicationSettings.read(out ImarisVersionFromSettingsFile,
-                out ImarisPathFromSettingsFile))
+                out ImarisPathFromSettingsFile, out ImarisProductStates))
             {
                 this.m_ImarisPath = ImarisPathFromSettingsFile;
                 this.m_ImarisVersion = ImarisVersionFromSettingsFile;
                 buttonImarisPath.Text = this.m_ImarisPath;
+            }
+
+            // Fill in the list of products
+            foreach (String productName in this.m_Products.Keys)
+            {
+                bool state;
+                if (ImarisProductStates.ContainsKey(productName))
+                {
+                    if (!ImarisProductStates.TryGetValue(productName, out state))
+                    {
+                        state = true;
+                    }
+                }
+                else
+                {
+                    state = true;
+                }
+
+                // Add the product with the state read from the application settings
+                checkedListBoxProducts.Items.Add(productName, state);
+            }
+
+            // Enable save button?
+            if (!this.m_ImarisPath.Equals(""))
+            {
+                this.buttonSave.Enabled = true;
             }
 
         }
@@ -60,18 +108,17 @@ namespace ImarisSelectorAdmin
                 buttonImarisPath.Text = dialog.FileName;
 
                 // Extract version information from the Imaris path
-                processImarisExecutablePath();
-
-                // Store ImarisPath and ImarisVersion to the settings file
-                ApplicationSettings.write(this.m_ImarisVersion, this.m_ImarisPath);
-                
+                if (processImarisExecutablePath() == true)
+                {
+                    this.buttonSave.Enabled = true;
+                }
 	        }
         }
 
         /// <summary>
         /// Processes the Imaris executable path to extract version information.
         /// </summary>
-        private void processImarisExecutablePath()
+        private bool processImarisExecutablePath()
         {
             // Get the Imaris version from the path
             // We need to extract the optional 'x64 string' and major plus minor
@@ -103,10 +150,13 @@ namespace ImarisSelectorAdmin
                 // Inform the user
                 MessageBox.Show("Invalid Imaris executable selected!\n" +
                     "Please try again.",
-                    "Process Info",
+                    "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return false;
             }
+
+            // Return success
+            return true;
 
         }
 
@@ -155,5 +205,57 @@ namespace ImarisSelectorAdmin
 
         }
 
+        /// <summary>
+        /// Update product description in the UI.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void checkedListBoxProducts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Get the selected product name
+            String productName = (String)checkedListBoxProducts.SelectedItem;
+
+            String descr;
+            if (!this.m_Products.TryGetValue(productName, out descr))
+            {
+                descr = "Unknown module.";
+            }
+            labelProductDescription.Text = descr;
+        }
+
+        /// <summary>
+        /// Save settings to disk
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            // Make sure everything is set
+            if (this.m_ImarisPath.Equals("") || this.m_ImarisVersion.Equals(""))
+            {
+                // Inform the user
+                MessageBox.Show("Please choose a valid Imaris executable first!",
+                    "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Collect all products and states
+            Dictionary<String, bool> productsWithStates = new Dictionary<String, bool>();
+
+            // Store the items with their checked state
+            for (int i = 0; i < checkedListBoxProducts.Items.Count; i++)
+            {
+                bool state = false;
+                if (checkedListBoxProducts.GetItemChecked(i))
+                {
+                    state = true;
+                }
+                productsWithStates.Add(checkedListBoxProducts.Items[i].ToString(), state);
+            }
+
+            // Store ImarisPath and ImarisVersion to the settings file
+            ApplicationSettings.write(this.m_ImarisVersion, this.m_ImarisPath, productsWithStates);
+        }
     }
 }

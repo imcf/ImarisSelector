@@ -35,7 +35,7 @@ namespace ImarisSelectorLib
     /// <summary>
     /// A class to manage a catalog of modules and products. 
     /// </summary>
-    class ModuleCatalog
+    public class ModuleCatalog
     {
         private IEnumerable<Module> m_ModuleCatalog;
         private Dictionary<String, String> m_ProductCatalog;
@@ -47,6 +47,15 @@ namespace ImarisSelectorLib
         {
             // Build the catalog
             Build();
+        }
+
+        /// <summary>
+        /// Returns a dictionary of (name, description) for all known product names.
+        /// </summary>
+        /// <returns>Name and description for all known Imaris products.</returns>
+        public Dictionary<String, String> GetAllKnownProducts()
+        {
+            return this.m_ProductCatalog;
         }
 
         /// <summary>
