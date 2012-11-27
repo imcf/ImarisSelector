@@ -21,12 +21,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_2F7801A8535C4249872BEE6D2B543B98"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_31EF24D79DC24EFEB7B0669D71189561"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -45,7 +39,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_984BD27D4ED5492AB26716B1749DB4CE"
+        "MsmKey" = "8:_7FAF1F47F7B5449BB9A4B8C6C346E998"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_8DE67195816B4235AB99667704381DE5"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -58,13 +58,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_31EF24D79DC24EFEB7B0669D71189561"
+        "OwnerKey" = "8:_666C06C517C1DD7E0BB734058644EA5E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_666C06C517C1DD7E0BB734058644EA5E"
+        "OwnerKey" = "8:_31EF24D79DC24EFEB7B0669D71189561"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -172,26 +172,6 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2F7801A8535C4249872BEE6D2B543B98"
-            {
-            "SourcePath" = "8:Z:\\Sync\\Dropbox\\Devel\\ImarisSelectorAdminIcon.ico"
-            "TargetName" = "8:ImarisSelectorAdminIcon.ico"
-            "Tag" = "8:"
-            "Folder" = "8:_FACEC32D65B44EC0B43EACFA65DEC351"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:TRUE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_666C06C517C1DD7E0BB734058644EA5E"
             {
             "AssemblyRegister" = "3:1"
@@ -208,7 +188,7 @@
             "SourcePath" = "8:ImarisSelectorLib.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_FACEC32D65B44EC0B43EACFA65DEC351"
+            "Folder" = "8:_E49C2BEB23804D4A9DE6A7C84DF57B7F"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -223,17 +203,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_984BD27D4ED5492AB26716B1749DB4CE"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7FAF1F47F7B5449BB9A4B8C6C346E998"
             {
-            "SourcePath" = "8:Z:\\Sync\\Dropbox\\Devel\\ImarisSelectorIcon.ico"
+            "SourcePath" = "8:..\\Resources\\ImarisSelectorIcon.ico"
             "TargetName" = "8:ImarisSelectorIcon.ico"
             "Tag" = "8:"
-            "Folder" = "8:_FACEC32D65B44EC0B43EACFA65DEC351"
+            "Folder" = "8:_E49C2BEB23804D4A9DE6A7C84DF57B7F"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
             "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:TRUE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8DE67195816B4235AB99667704381DE5"
+            {
+            "SourcePath" = "8:..\\Resources\\ImarisSelectorAdminIcon.ico"
+            "TargetName" = "8:ImarisSelectorAdminIcon.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_E49C2BEB23804D4A9DE6A7C84DF57B7F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
             "System" = "11:FALSE"
             "Permanent" = "11:FALSE"
             "SharedLegacy" = "11:FALSE"
@@ -292,6 +292,17 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_E49C2BEB23804D4A9DE6A7C84DF57B7F"
+                    {
+                    "Name" = "8:resources"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_D7B5903122E6417AA50AEB40F5C561EF"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
         }
@@ -442,7 +453,7 @@
             "Target" = "8:_25851F99A2804A56AE91CE4600C05C72"
             "Folder" = "8:_635A25F02A424343AE6441A83DEEEB2C"
             "WorkingFolder" = "8:_FACEC32D65B44EC0B43EACFA65DEC351"
-            "Icon" = "8:_984BD27D4ED5492AB26716B1749DB4CE"
+            "Icon" = "8:_7FAF1F47F7B5449BB9A4B8C6C346E998"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_5879AF7394234AB58340F5F72630721C"
@@ -456,7 +467,7 @@
             "Target" = "8:_25851F99A2804A56AE91CE4600C05C72"
             "Folder" = "8:_2E79B2CE2BFB4274800ED41D7F78BB83"
             "WorkingFolder" = "8:_FACEC32D65B44EC0B43EACFA65DEC351"
-            "Icon" = "8:_984BD27D4ED5492AB26716B1749DB4CE"
+            "Icon" = "8:_8DE67195816B4235AB99667704381DE5"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_782F2F6C6D6D41A3B2D0F944BE8FA8E2"
@@ -470,7 +481,7 @@
             "Target" = "8:_31EF24D79DC24EFEB7B0669D71189561"
             "Folder" = "8:_2E79B2CE2BFB4274800ED41D7F78BB83"
             "WorkingFolder" = "8:_FACEC32D65B44EC0B43EACFA65DEC351"
-            "Icon" = "8:_2F7801A8535C4249872BEE6D2B543B98"
+            "Icon" = "8:_7FAF1F47F7B5449BB9A4B8C6C346E998"
             "Feature" = "8:"
             }
         }

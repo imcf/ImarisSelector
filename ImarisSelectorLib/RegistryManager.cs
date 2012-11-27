@@ -10,11 +10,11 @@ using Microsoft.Win32;
 namespace ImarisSelectorLib
 {
     /// <summary>
-    /// Class for managing registry keys associated to Imaris modules and their license state.
-    /// All module and product handling from the client side should be performed through the public
+    /// (Internal) class for managing registry keys associated to Imaris modules and their license state.
+    /// All module and product handling from the client side are performed through the public
     /// ModuleManager class (which in turns uses RegistryManager).
     /// </summary>
-    public class RegistryManager
+    internal class RegistryManager
     {
         // Private backing stores
         private String m_UserSID;
@@ -29,9 +29,6 @@ namespace ImarisSelectorLib
         /// <param name="ver">Imaris version in the form "Imaris x64 7.6" (no patch version).</param>
         public RegistryManager(String ver)
         {
-            // Initialize the module and product catalogs
-            //this.m_ModuleCatalog = new ModuleManager();
-
             // Set user SID and Imaris version for use by other methods
             this.m_UserSID = WindowsIdentity.GetCurrent().User.ToString();
             this.m_ImarisVersionString = ver;
@@ -41,11 +38,38 @@ namespace ImarisSelectorLib
         }
 
         /// <summary>
+        /// Disable module of given name.
+        /// </summary>
+        /// <param name="moduleName">Name of the module to be disabled.</param>
+        public void DisableModule(String moduleName)
+        {
+            SetLicenseState(moduleName, false);
+        }
+
+        /// <summary>
+        /// Enable module of given name.
+        /// </summary>
+        /// <param name="moduleName">Name of the module to be enabled.</param>
+        public void EnableModule(String moduleName)
+        {
+            SetLicenseState(moduleName, true);
+        }
+
+        /// <summary>
+        /// Get installed module names.
+        /// </summary>
+        /// <returns>A List of all module names.</returns>
+        public List<String> GetInstalledModuleNames()
+        {
+            return this.m_InstalledModuleList;
+        }
+
+        /// <summary>
         /// Return the state of the license for the selected module.
         /// </summary>
         /// <param name="moduleName">Name of the module.</param>
-        /// <returns>"true" if the license is enabled, "false" if it is disabled, 
-        /// and "" if the license could not be found.</returns>
+        /// <returns>true if the license is enabled, false if it is disabled
+        /// (or the license could not be found).</returns>
         public bool IsModuleEnabled(String moduleName)
         {
             // Get the licenses key
@@ -69,63 +93,10 @@ namespace ImarisSelectorLib
             return value.Equals("true");
         }
 
-        /// <summary>
-        /// Disable module of given name.
-        /// </summary>
-        /// <param name="moduleName">Name of the module to be disabled.</param>
-        public void DisableModule(String moduleName)
-        {
-            SetLicenseState(moduleName, false);
-        }
-
-        /// <summary>
-        /// Enable module of given name.
-        /// </summary>
-        /// <param name="moduleName">Name of the module to be enabled.</param>
-        public void EnableModule(String moduleName)
-        {
-            SetLicenseState(moduleName, true);
-        }
-
-        /// <summary>
-        /// Enable all licenses in the registry
-        /// </summary>
-        public void EnableAllModules()
-        {
-            // Get all licenses
-            List<String> allModuleNames = GetAllModuleNames();
-
-            // Enable all
-            EnableModules(allModuleNames);
-
-        }
-
-        /// <summary>
-        /// Enable all licenses in the registry.
-        /// </summary>
-        public void EnableModules(List<String> moduleNames)
-        {
-            // Iterate over licenses
-            foreach (String moduleName in moduleNames)
-            {
-                // Enable the license
-                EnableModule(moduleName);
-            }
-        }
-
-        /// <summary>
-        /// Get all module names (with the exception of ImarisBase and ImarisAnalyzer).
-        /// </summary>
-        /// <returns>A List of all module names </returns>
-        public List<String> GetAllModuleNames()
-        {
-            return this.m_InstalledModuleList;
-        }
-
         //// PRIVATE METHODS 
 
         /// <summary>
-        /// Gets and stores all licenses from the registry (with the exception of ImarisBase).
+        /// Gets and stores all modules from the registry.
         /// </summary>
         private void ScanForInstalledModules()
         {
@@ -153,8 +124,6 @@ namespace ImarisSelectorLib
             }
 
         }
-
-
 
         /// <summary>
         /// Sets the license state for a given module.
@@ -208,7 +177,7 @@ namespace ImarisSelectorLib
         private String GetImarisLicenseStatePath()
         {
             return m_UserSID + "\\Software\\Bitplane\\" +
-                m_ImarisVersionString + "\\Licenses\\";
+                this.m_ImarisVersionString + "\\Licenses\\";
         }
     }
 }

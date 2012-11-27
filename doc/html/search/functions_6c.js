@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['licenseinformationfound',['LicenseInformationFound',['../class_imaris_selector_lib_1_1_registry_manager.html#a8e18c9baab99f212a798819beb77d112',1,'ImarisSelectorLib::RegistryManager']]]
+  ['licenseinformationfound',['LicenseInformationFound',['../class_imaris_selector_lib_1_1_module_manager.html#a3b68cedb0382fd3621f12ecf9089324c',1,'ImarisSelectorLib::ModuleManager']]]
 ];

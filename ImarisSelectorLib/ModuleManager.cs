@@ -46,6 +46,7 @@ namespace ImarisSelectorLib
 
         /// <summary>
         /// Constructor.
+        /// <param name="settings">Application settings (read from disk).</param>
         /// </summary>
         public ModuleManager(Settings settings)
         {
@@ -63,7 +64,7 @@ namespace ImarisSelectorLib
         /// <returns>True if license information could be found, false otherwise.</returns>
         public bool LicenseInformationFound()
         {
-            return (this.m_RegistryManager.GetAllModuleNames().Count > 0);
+            return (this.m_RegistryManager.GetInstalledModuleNames().Count > 0);
         }
 
         /// <summary>
@@ -73,6 +74,16 @@ namespace ImarisSelectorLib
         public Dictionary<String, String> GetProductCatalog()
         {
             return this.m_ProductCatalog;
+        }
+
+        /// <summary>
+        /// Return a list of names for all products that are installed on the machine.
+        /// </summary>
+        /// <returns>List of installed product names.</returns>
+        public List<String> GetInstalledProductList()
+        {            
+            // Get the list of products
+            return GetProductsForModules(this.m_RegistryManager.GetInstalledModuleNames());
         }
 
         /// <summary>
@@ -168,7 +179,7 @@ namespace ImarisSelectorLib
 
         /// <summary>
         /// Query the module catalog for input module names and return the 
-        /// products associated to them
+        /// products associated to them.
         /// </summary>
         /// <param name="moduleNames">List of module names</param>
         /// <returns>List of product names</returns>
@@ -226,26 +237,13 @@ namespace ImarisSelectorLib
             return moduleNames;
         }
 
-        ///// <summary>
-        ///// Disable all modules.
-        ///// // TODO: Decide what to do with ImarisBase.
-        ///// </summary>
-        //public void DisableAllModules()
-        //{
-        //    this.m_RegistryManager.DisableAllModules();
-        //}
-
         /// <summary>
-        /// Enable modules belonging to specific products.
+        /// Enable module of given name.
         /// </summary>
-        public void EnableProducts(List<String> productNames)
+        /// <param name="moduleName">Name of the module to be enabled.</param>
+        public void EnableModule(String moduleName)
         {
-            // For each of the products get the corresponding modules
-            foreach (String product in productNames)
-            {
-                List<String> modules = GetModulesForProduct(product);
-                this.m_RegistryManager.EnableModules(modules);
-            }
+            this.m_RegistryManager.EnableModule(moduleName);
         }
 
         /// <summary>
@@ -262,12 +260,25 @@ namespace ImarisSelectorLib
         }
 
         /// <summary>
-        /// Enable module of given name.
+        /// Enable all licenses in the registry.
+        /// // TODO: Decide what to do with ImarisBase.
         /// </summary>
-        /// <param name="moduleName">Name of the module to be enabled.</param>
-        public void EnableModule(String moduleName)
+        public void EnableAllModules()
         {
-            this.m_RegistryManager.EnableModule(moduleName);
+            // Get all licenses
+            List<String> allModuleNames = GetAllModuleNames();
+
+            // Diable all modules
+            EnableModules(allModuleNames);
+        }
+
+        /// <summary>
+        /// Disable module of given name.
+        /// </summary>
+        /// <param name="moduleName">Name of the module to be disabled.</param>
+        public void DisableModule(String moduleName)
+        {
+            this.m_RegistryManager.DisableModule(moduleName);
         }
 
         /// <summary>
@@ -299,12 +310,16 @@ namespace ImarisSelectorLib
         }
 
         /// <summary>
-        /// Disable module of given name.
+        /// Enable modules belonging to specific products.
         /// </summary>
-        /// <param name="moduleName">Name of the module to be disabled.</param>
-        public void DisableModule(String moduleName)
+        public void EnableProducts(List<String> productNames)
         {
-            this.m_RegistryManager.DisableModule(moduleName);
+            // For each of the products get the corresponding modules
+            foreach (String product in productNames)
+            {
+                List<String> modules = GetModulesForProduct(product);
+                EnableModules(modules);
+            }
         }
 
         /// <summary>
@@ -321,37 +336,22 @@ namespace ImarisSelectorLib
         }
 
         /// <summary>
-        /// Get list of products.
-        /// </summary>
-        /// <returns>List of product names.</returns>
-        public List<String> GetProductNames()
-        {
-            return new List<string>(this.m_ProductCatalog.Keys);
-        }
-
-        /// <summary>
         /// Get all module names.
         /// </summary>
         /// <returns>A List of all module names </returns>
         public List<String> GetAllModuleNames()
         {
-            return this.m_RegistryManager.GetAllModuleNames();
+            return this.m_RegistryManager.GetInstalledModuleNames();
         }
 
-        ///// <summary>
-        ///// Disable all licenses in the registry.
-        ///// TODO: Decide what to do with ImarisBase.
-        ///// </summary>
-        //public void DisableModules(List<String> moduleNames)
-        //{
-        //    // Iterate over modules
-        //    foreach (String moduleName in moduleNames)
-        //    {
-        //        // Disable the module
-        //        DisableModule(moduleName);
-
-        //    }
-        //}
+        /// <summary>
+        /// Get list of products.
+        /// </summary>
+        /// <returns>List of product names.</returns>
+        public List<String> GetAllProductNames()
+        {
+            return new List<string>(this.m_ProductCatalog.Keys);
+        }
 
         /// <summary>
         /// Return the state of the license for the selected module.
@@ -385,6 +385,8 @@ namespace ImarisSelectorLib
             }
             return false;
         }
+
+        // PRIVATE METHODS
 
         /// <summary>
         /// Build the Module and Product catalogue.

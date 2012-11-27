@@ -70,10 +70,10 @@ namespace ImarisSelectorAdmin
                 // No settings found
                 
                 // Add all products and activate them
-                Dictionary<String, String> productCatalog = 
-                    new ModuleManager(this.m_Settings).GetProductCatalog();
+                List<String> installedProducts = 
+                    new ModuleManager(this.m_Settings).GetInstalledProductList();
                 checkedListBoxProducts.Items.Clear();
-                foreach (String productName in productCatalog.Keys)
+                foreach (String productName in installedProducts)
                 {
                     this.m_Settings.ProductsWithEnabledState.Add(productName, true);
                     checkedListBoxProducts.Items.Add(productName, true);

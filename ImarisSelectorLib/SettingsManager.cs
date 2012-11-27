@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace ImarisSelectorLib
 {
     /// <summary>
-    /// Simple class to hold the settings
+    /// Simple class to hold the settings.
     /// </summary>
     public class Settings
     {
@@ -30,7 +30,7 @@ namespace ImarisSelectorLib
         public bool isValid { get; set; }
 
         /// <summary>
-        /// Constructor
+        /// Constructor.
         /// </summary>
         public Settings()
         {
@@ -50,6 +50,7 @@ namespace ImarisSelectorLib
         /// <summary>
         /// Get the ImarisSelector settings from the settings file.
         /// </summary>
+        /// <returns>A Settings object with the loaded settings.</returns>
         public static Settings read()
         {
             // Initialize output
@@ -113,11 +114,8 @@ namespace ImarisSelectorLib
         /// <summary>
         /// Set the application settings to the settings file.
         /// </summary>
-        /// <param name="ImarisVersion">Imaris version, in the form "Imaris x64 7.6"</param>
-        /// <param name="ImarisPath">Full path of the Imaris executable.</param>
-        /// <param name="ProductsWithStates">Dictionary of product names with their states.</param>
-
-        /// <returns></returns>
+        /// <param name="settings">A Settings object with the settings to write to disk.</param>
+        /// <returns>True if the settings could be saved to disk, false otherwise.</returns>
         public static bool write(Settings settings)
         {
             // Make sure the settings directory exists

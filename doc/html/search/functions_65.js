@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['enableallmodules',['EnableAllModules',['../class_imaris_selector_lib_1_1_registry_manager.html#a2d4a2dae224ae71f039229b73a03d440',1,'ImarisSelectorLib::RegistryManager']]],
-  ['enablemodule',['EnableModule',['../class_imaris_selector_lib_1_1_registry_manager.html#a7df6c9ae580e6516505ec794d4dbc040',1,'ImarisSelectorLib::RegistryManager']]],
-  ['enablemodules',['EnableModules',['../class_imaris_selector_lib_1_1_registry_manager.html#a9d4a1748f70316a1de646bbfec3a8144',1,'ImarisSelectorLib::RegistryManager']]],
-  ['enableproducts',['EnableProducts',['../class_imaris_selector_lib_1_1_registry_manager.html#a2c3191669035891970f153929bd0d14c',1,'ImarisSelectorLib::RegistryManager']]]
+  ['enableallmodules',['EnableAllModules',['../class_imaris_selector_lib_1_1_module_manager.html#a4072714d3c52e73d2536614bce8e7756',1,'ImarisSelectorLib::ModuleManager']]],
+  ['enablemodule',['EnableModule',['../class_imaris_selector_lib_1_1_module_manager.html#aca66aab57b19712ca2ba1036ef3c49ac',1,'ImarisSelectorLib::ModuleManager']]],
+  ['enablemodules',['EnableModules',['../class_imaris_selector_lib_1_1_module_manager.html#a92e7f64ef95b4ab6bbe6752c9ff6a4fe',1,'ImarisSelectorLib::ModuleManager']]],
+  ['enableproducts',['EnableProducts',['../class_imaris_selector_lib_1_1_module_manager.html#ac08eba691db601f8dfb1cbb0ad224984',1,'ImarisSelectorLib::ModuleManager']]]
 ];
