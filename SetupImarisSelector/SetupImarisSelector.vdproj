@@ -45,7 +45,19 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_8681CF71C6ED4306A7F2ABD739EE05A8"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_8DE67195816B4235AB99667704381DE5"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C71FDAE0240043B1B2FB579F9E6169DB"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -223,12 +235,52 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8681CF71C6ED4306A7F2ABD739EE05A8"
+            {
+            "SourcePath" = "8:..\\NOTICE"
+            "TargetName" = "8:NOTICE"
+            "Tag" = "8:"
+            "Folder" = "8:_FACEC32D65B44EC0B43EACFA65DEC351"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8DE67195816B4235AB99667704381DE5"
             {
             "SourcePath" = "8:..\\Resources\\ImarisSelectorAdminIcon.ico"
             "TargetName" = "8:ImarisSelectorAdminIcon.ico"
             "Tag" = "8:"
             "Folder" = "8:_E49C2BEB23804D4A9DE6A7C84DF57B7F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C71FDAE0240043B1B2FB579F9E6169DB"
+            {
+            "SourcePath" = "8:..\\LICENSE"
+            "TargetName" = "8:LICENSE"
+            "Tag" = "8:"
+            "Folder" = "8:_FACEC32D65B44EC0B43EACFA65DEC351"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -322,7 +374,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ImarisSelector"
         "ProductCode" = "8:{28F464E3-C3BC-40A8-BBA8-ADC231DFAF7F}"
-        "PackageCode" = "8:{FCC93FCF-52DC-4D81-B474-78E07EE6F599}"
+        "PackageCode" = "8:{5FBFBC66-D1AA-4505-9A9E-294B379A8F26}"
         "UpgradeCode" = "8:{31EFE1ED-5124-4CDA-992F-469E6D3DE479}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -579,8 +631,8 @@
                             "Type" = "3:3"
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1202"
+                            "Setting" = "3:2"
+                            "Value" = "8:Copyright Aaron Ponti, D-BSSE ETH Zurich, 2012. All rights reserved. ImarisSelector is distributed under the terms of the Apache 2.0 license (http://www.apache.org/licenses/LICENSE-2.0)."
                             "DefaultValue" = "8:#1202"
                             "UsePlugInResources" = "11:TRUE"
                             }
@@ -761,8 +813,8 @@
                             "Type" = "3:3"
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1202"
+                            "Setting" = "3:2"
+                            "Value" = "8:Copyright Aaron Ponti, D-BSSE ETH Zurich, 2012. All rights reserved. ImarisSelector is distributed under the terms of the Apache 2.0 license (http://www.apache.org/licenses/LICENSE-2.0)."
                             "DefaultValue" = "8:#1202"
                             "UsePlugInResources" = "11:TRUE"
                             }
