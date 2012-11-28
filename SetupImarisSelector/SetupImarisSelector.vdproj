@@ -70,13 +70,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_31EF24D79DC24EFEB7B0669D71189561"
+        "OwnerKey" = "8:_666C06C517C1DD7E0BB734058644EA5E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_666C06C517C1DD7E0BB734058644EA5E"
+        "OwnerKey" = "8:_31EF24D79DC24EFEB7B0669D71189561"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -191,11 +191,6 @@
             "AssemblyAsmDisplayName" = "8:ImarisSelectorLib, Version=0.9.5.0, Culture=neutral, processorArchitecture=AMD64"
                 "ScatterAssemblies"
                 {
-                    "_666C06C517C1DD7E0BB734058644EA5E"
-                    {
-                    "Name" = "8:ImarisSelectorLib.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:ImarisSelectorLib.dll"
             "TargetName" = "8:"
@@ -632,7 +627,7 @@
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
                             "Setting" = "3:2"
-                            "Value" = "8:Copyright Aaron Ponti, D-BSSE ETH Zurich, 2012. All rights reserved. ImarisSelector is distributed under the terms of the Apache 2.0 license (http://www.apache.org/licenses/LICENSE-2.0)."
+                            "Value" = "8:Copyright Aaron Ponti, D-BSSE, ETH Zurich, 2012. All rights reserved. ImarisSelector is distributed under the terms of the Apache 2.0 license (http://www.apache.org/licenses/LICENSE-2.0)."
                             "DefaultValue" = "8:#1202"
                             "UsePlugInResources" = "11:TRUE"
                             }
@@ -814,7 +809,7 @@
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
                             "Setting" = "3:2"
-                            "Value" = "8:Copyright Aaron Ponti, D-BSSE ETH Zurich, 2012. All rights reserved. ImarisSelector is distributed under the terms of the Apache 2.0 license (http://www.apache.org/licenses/LICENSE-2.0)."
+                            "Value" = "8:Copyright Aaron Ponti, D-BSSE, ETH Zurich, 2012. All rights reserved. ImarisSelector is distributed under the terms of the Apache 2.0 license (http://www.apache.org/licenses/LICENSE-2.0)."
                             "DefaultValue" = "8:#1202"
                             "UsePlugInResources" = "11:TRUE"
                             }

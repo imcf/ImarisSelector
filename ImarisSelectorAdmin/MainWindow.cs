@@ -237,7 +237,15 @@ namespace ImarisSelectorAdmin
 
             // Store ImarisPath and ImarisVersion to the settings file
             this.m_Settings.ProductsWithEnabledState = productsWithStates;
-            SettingsManager.write(this.m_Settings);
+            if (SettingsManager.write(this.m_Settings) == false)
+            {
+                // The user could not write to the settings folder!
+                MessageBox.Show(
+                    "Sorry, you do not have sufficient rights to save the settings!\n" +
+                    "Are you an administrator?",
+                    "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /// <summary>

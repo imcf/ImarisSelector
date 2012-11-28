@@ -122,33 +122,43 @@ namespace ImarisSelectorLib
         /// <returns>True if the settings could be saved to disk, false otherwise.</returns>
         public static bool write(Settings settings)
         {
-            // Make sure the settings directory exists
-            CreateSettingsDirIfNeeded(SettingsDirectoryName());
-
-            // Write the settings to file
-            StreamWriter file = new StreamWriter(settingsFullFileName());
-            if (file != null)
+            // We put the whole writing block in a try...catch block
+            try
             {
-                file.WriteLine("FileVersion=ImarisSelector Settings File version 1.0");
-                file.WriteLine("ImarisVersion=" + settings.ImarisVersion);
-                file.WriteLine("ImarisPath=" + settings.ImarisPath);
-                foreach (KeyValuePair<String, bool> entry in settings.ProductsWithEnabledState)
+
+                // Make sure the settings directory exists
+                CreateSettingsDirIfNeeded(SettingsDirectoryName());
+
+                // Write the settings to file
+                StreamWriter file = new StreamWriter(settingsFullFileName());
+                if (file != null)
                 {
-                    String state = "false";
-                    if (entry.Value == true)
+                    file.WriteLine("FileVersion=ImarisSelector Settings File version 1.0");
+                    file.WriteLine("ImarisVersion=" + settings.ImarisVersion);
+                    file.WriteLine("ImarisPath=" + settings.ImarisPath);
+                    foreach (KeyValuePair<String, bool> entry in settings.ProductsWithEnabledState)
                     {
-                        state = "true";
+                        String state = "false";
+                        if (entry.Value == true)
+                        {
+                            state = "true";
+                        }
+                        file.WriteLine(entry.Key + "=" + state);
                     }
-                    file.WriteLine(entry.Key + "=" + state);
-                }
-                file.Close();
+                    file.Close();
 
-                // Success
-                return true;
+                    // Success
+                    return true;
+                }
+                else
+                {
+                    // Failure
+                    return false;
+                }
             }
-            else
+            catch
             {
-                // Failure
+                // Could not write to disk!
                 return false;
             }
 
