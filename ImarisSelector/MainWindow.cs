@@ -262,6 +262,12 @@ namespace ImarisSelector
             this.checkedListBoxLicenses.ItemCheck += 
                 new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxLicenses_ItemCheck);
 
+            // In the pathological case that no products exist or have been enabled by the administrator,
+            // inform the user
+            if (checkedListBoxLicenses.Items.Count == 0)
+            {
+                labelLicenseName.Text = "No products installed or enabled.";
+            }
         }
 
         /// <summary>

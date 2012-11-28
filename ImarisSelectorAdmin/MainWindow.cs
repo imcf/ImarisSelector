@@ -248,7 +248,12 @@ namespace ImarisSelectorAdmin
             // Add all products and activate them
             List<String> installedProducts =
                 new ModuleManager(this.m_Settings).GetInstalledProductList();
+
+            // Clear existing lists
             checkedListBoxProducts.Items.Clear();
+            this.m_Settings.ProductsWithEnabledState.Clear();
+
+            // Add the new products and states
             foreach (String productName in installedProducts)
             {
                 this.m_Settings.ProductsWithEnabledState.Add(productName, true);
