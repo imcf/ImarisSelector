@@ -459,6 +459,7 @@ namespace ImarisSelectorLib
             // This is a catalogue of all known Imaris modules
             this.m_ModuleCatalog = new List<Module> 
             {
+                /* The Imaris modules are not listed
                 new Module {
                     ID = "ImarisAnalyzer",
                     Name = "Imaris Analyzer",
@@ -489,6 +490,7 @@ namespace ImarisSelectorLib
                     Name = "ImarisTopography",
                     Product = "Imaris",
                     Description = ""},
+                */
                 new Module {
                     ID = "ImarisCellsViewer",
                     Name = "Imaris Cell",
@@ -633,9 +635,11 @@ namespace ImarisSelectorLib
 
             // This is a catalog of the know Imaris products (stored in a Dictionary)
             this.m_ProductCatalog = new Dictionary<String, String>();
+            /*
             this.m_ProductCatalog.Add(
                 "Imaris",
-                "3D and 4D Real-Time Interactive Image Visualization.");
+                "3D and 4D Real-Time Interactive Image Visualization."); 
+             */
             this.m_ProductCatalog.Add(
                 "Imaris Measurement Pro",
                 "The Analysis and Quantification Engine.");

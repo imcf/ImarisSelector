@@ -68,28 +68,32 @@ namespace ImarisSelectorLib
                     while ((line = file.ReadLine()) != null)
                     {
                         // Get the line key and value
-                        String[] components = line.Split('=');
+                        String[] parts = line.Split('=');
 
-                        if (components.Length != 2)
+                        if (parts.Length != 2)
                         {
                             continue;
                         }
 
-                        if (components[0].Equals("FileVersion"))
+                        if (parts[0].Equals("FileVersion"))
                         {
-                            // TODO Check the version
+                            if (!parts[1].Equals("ImarisSelector Settings File version 1.0"))
+                            {
+                                // Invalid settings file version - ignore the file
+                                return new Settings();
+                            }
                         }
-                        else if (components[0].Equals("ImarisVersion"))
+                        else if (parts[0].Equals("ImarisVersion"))
                         {
-                            settings.ImarisVersion = components[1];
+                            settings.ImarisVersion = parts[1];
                         }
-                        else if (components[0].Equals("ImarisPath"))
+                        else if (parts[0].Equals("ImarisPath"))
                         {
-                            settings.ImarisPath = components[1];
+                            settings.ImarisPath = parts[1];
                         }
                         else
                         {
-                            settings.ProductsWithEnabledState.Add(components[0], components[1].Equals("true"));
+                            settings.ProductsWithEnabledState.Add(parts[0], parts[1].Equals("true"));
                         }
                     }
                     file.Close();
@@ -125,7 +129,7 @@ namespace ImarisSelectorLib
             StreamWriter file = new StreamWriter(settingsFullFileName());
             if (file != null)
             {
-                file.WriteLine("FileVersion=ImarisSelector Settings File version 1");
+                file.WriteLine("FileVersion=ImarisSelector Settings File version 1.0");
                 file.WriteLine("ImarisVersion=" + settings.ImarisVersion);
                 file.WriteLine("ImarisPath=" + settings.ImarisPath);
                 foreach (KeyValuePair<String, bool> entry in settings.ProductsWithEnabledState)

@@ -60,22 +60,6 @@ namespace ImarisSelectorAdmin
                 // Enable save button
                 this.buttonSave.Enabled = true;
             }
-            else
-            {
-                // No settings found
-                
-                // Add all products and activate them
-                List<String> installedProducts =
-                    new ModuleManager(this.m_Settings).GetInstalledProductList();
-                checkedListBoxProducts.Items.Clear();
-                foreach (String productName in installedProducts)
-                {
-                    this.m_Settings.ProductsWithEnabledState.Add(productName, true);
-                    checkedListBoxProducts.Items.Add(productName, true);
-                }
-
-            }
-
         }
 
         /// <summary>
@@ -101,6 +85,10 @@ namespace ImarisSelectorAdmin
                 // Extract version information from the Imaris path
                 if (processImarisExecutablePath() == true)
                 {
+                    // (Re)populate the product list
+                    FillProductList();
+
+                    // Enable the save button
                     this.buttonSave.Enabled = true;
                 }
 	        }
@@ -250,6 +238,22 @@ namespace ImarisSelectorAdmin
             // Store ImarisPath and ImarisVersion to the settings file
             this.m_Settings.ProductsWithEnabledState = productsWithStates;
             SettingsManager.write(this.m_Settings);
+        }
+
+        /// <summary>
+        /// Fill in the checkedListbox based on the Settings.
+        /// </summary>
+        private void FillProductList()
+        {
+            // Add all products and activate them
+            List<String> installedProducts =
+                new ModuleManager(this.m_Settings).GetInstalledProductList();
+            checkedListBoxProducts.Items.Clear();
+            foreach (String productName in installedProducts)
+            {
+                this.m_Settings.ProductsWithEnabledState.Add(productName, true);
+                checkedListBoxProducts.Items.Add(productName, true);
+            }
         }
     }
 }
