@@ -59,6 +59,8 @@ namespace ImarisSelectorLib
             // Initialize the Registry Manager
             this.m_RegistryManager = new RegistryManager(this.m_Settings.ImarisVersion);
 
+            // Make sure the Imaris product is enabled
+            EnableProducts(new List<String> { "Imaris" });
         }
 
         /// <summary>
@@ -105,7 +107,7 @@ namespace ImarisSelectorLib
                 from productName in installedProducts.AsEnumerable()
                 join productWithState in this.m_Settings.ProductsWithEnabledState
                 on productName equals productWithState.Key
-                where productWithState.Value == true
+                where productWithState.Value == true && !productName.Equals("Imaris")
                 orderby productName ascending
                 select new { productName };
 
@@ -459,12 +461,13 @@ namespace ImarisSelectorLib
             // This is a catalogue of all known Imaris modules
             this.m_ModuleCatalog = new List<Module> 
             {
-                /* The Imaris modules are not listed
+                /* ImarisAnalyzer is obsolete
                 new Module {
                     ID = "ImarisAnalyzer",
                     Name = "Imaris Analyzer",
                     Product = "Obsolete", 
                     Description = "Unknown module" },
+                */
                 new Module {
                     ID = "ImarisBase",
                     Name = "Imaris Base",
@@ -490,7 +493,6 @@ namespace ImarisSelectorLib
                     Name = "ImarisTopography",
                     Product = "Imaris",
                     Description = ""},
-                */
                 new Module {
                     ID = "ImarisCellsViewer",
                     Name = "Imaris Cell",
@@ -635,11 +637,9 @@ namespace ImarisSelectorLib
 
             // This is a catalog of the know Imaris products (stored in a Dictionary)
             this.m_ProductCatalog = new Dictionary<String, String>();
-            /*
             this.m_ProductCatalog.Add(
                 "Imaris",
                 "3D and 4D Real-Time Interactive Image Visualization."); 
-             */
             this.m_ProductCatalog.Add(
                 "Imaris Measurement Pro",
                 "The Analysis and Quantification Engine.");

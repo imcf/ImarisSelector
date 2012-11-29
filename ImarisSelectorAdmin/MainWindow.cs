@@ -257,6 +257,9 @@ namespace ImarisSelectorAdmin
             List<String> installedProducts =
                 new ModuleManager(this.m_Settings).GetInstalledProductList();
 
+            // We do not display Imaris
+            installedProducts.Remove("Imaris");
+
             // Clear existing lists
             checkedListBoxProducts.Items.Clear();
             this.m_Settings.ProductsWithEnabledState.Clear();

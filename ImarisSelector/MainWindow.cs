@@ -19,10 +19,8 @@ namespace ImarisSelector
         private Settings m_Settings;
 
         /// <summary>
-        /// Protected RegistryManager instance.
+        /// Protected ModuleManager instance.
         /// </summary>
-        ///protected RegistryManager m_Manager;
-
         protected ModuleManager m_ModuleManager;
 
         /// <summary>
@@ -50,7 +48,6 @@ namespace ImarisSelector
             }
 
             // Instantiate the registry manager
-            ///this.m_Manager = new RegistryManager(this.m_Settings.ImarisVersion);
             this.m_ModuleManager = new ModuleManager(this.m_Settings);
 
             // Initialize the window components

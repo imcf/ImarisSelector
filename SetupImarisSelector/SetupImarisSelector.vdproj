@@ -185,6 +185,11 @@
             "AssemblyAsmDisplayName" = "8:ImarisSelectorLib, Version=0.9.5.0, Culture=neutral, processorArchitecture=AMD64"
                 "ScatterAssemblies"
                 {
+                    "_666C06C517C1DD7E0BB734058644EA5E"
+                    {
+                    "Name" = "8:ImarisSelectorLib.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:ImarisSelectorLib.dll"
             "TargetName" = "8:"
@@ -342,15 +347,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ImarisSelector"
-        "ProductCode" = "8:{28F464E3-C3BC-40A8-BBA8-ADC231DFAF7F}"
-        "PackageCode" = "8:{5FBFBC66-D1AA-4505-9A9E-294B379A8F26}"
+        "ProductCode" = "8:{88A6D222-8E27-4758-B2A8-9317F3FDCC83}"
+        "PackageCode" = "8:{B54B78B9-045C-4CFD-B887-914C4433DB6B}"
         "UpgradeCode" = "8:{31EFE1ED-5124-4CDA-992F-469E6D3DE479}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:0.9.5"
+        "ProductVersion" = "8:0.9.6"
         "Manufacturer" = "8:ETH Zurich"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

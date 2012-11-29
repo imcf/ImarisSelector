@@ -110,17 +110,11 @@ namespace ImarisSelectorLib
                 return;
             }
 
-            // Iterate over the modules and store them with their state
+            // Iterate over the modules and store them
             String[] moduleNames = licensesKey.GetValueNames();
             foreach (String module in moduleNames)
             {
-                // Get the license state
-                // We hide ImarisAnalyzer, which appears to be an old (inactive) module
-                // TODO: Decide what to do with ImarisBase
-                if (!module.Equals("ImarisAnalyzer"))
-                {
-                    this.m_InstalledModuleList.Add(module);
-                }
+                this.m_InstalledModuleList.Add(module);
             }
 
         }

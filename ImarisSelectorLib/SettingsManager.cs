@@ -77,7 +77,7 @@ namespace ImarisSelectorLib
 
                         if (parts[0].Equals("FileVersion"))
                         {
-                            if (!parts[1].Equals("ImarisSelector Settings File version 1.0"))
+                            if (!parts[1].Equals("ImarisSelector Settings File version 1.0.0"))
                             {
                                 // Invalid settings file version - ignore the file
                                 return new Settings();
@@ -133,7 +133,7 @@ namespace ImarisSelectorLib
                 StreamWriter file = new StreamWriter(settingsFullFileName());
                 if (file != null)
                 {
-                    file.WriteLine("FileVersion=ImarisSelector Settings File version 1.0");
+                    file.WriteLine("FileVersion=ImarisSelector Settings File version 1.0.0");
                     file.WriteLine("ImarisVersion=" + settings.ImarisVersion);
                     file.WriteLine("ImarisPath=" + settings.ImarisPath);
                     foreach (KeyValuePair<String, bool> entry in settings.ProductsWithEnabledState)
