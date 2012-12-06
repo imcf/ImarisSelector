@@ -193,6 +193,10 @@ namespace ImarisSelectorAdmin
         {
             // Get the selected product name
             String productName = (String)checkedListBoxProducts.SelectedItem;
+            if (productName == null)
+            {
+                return;
+            }
 
             String descr;
             Dictionary<String, String> productCatalog = 

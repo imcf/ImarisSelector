@@ -95,6 +95,10 @@ namespace ImarisSelector
         {
             // Get the selected module name
             String itemName = (String)checkedListBoxLicenses.SelectedItem;
+            if (itemName == null)
+            {
+                return;
+            }
 
             if (isProductView())
             {
@@ -123,6 +127,10 @@ namespace ImarisSelector
         {
             // Get the module name
             String itemName = checkedListBoxLicenses.Items[e.Index].ToString();
+            if (itemName == null)
+            {
+                return;
+            }
 
             // Set the new state
             if (e.NewValue == CheckState.Checked)

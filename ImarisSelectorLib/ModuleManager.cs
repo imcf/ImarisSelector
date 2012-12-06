@@ -560,9 +560,9 @@ namespace ImarisSelectorLib
                     Description = "Supported extensions: *.mrc, *.st, *.rec"},
                 new Module {
                     ID = "ImarisReaderIPLab",
-                    Name = "???",
+                    Name = "BioVision IPLab IPL(series), IPM",
                     Product = "File Reader",
-                    Description = "Supported extesions: *.???"},
+                    Description = "Supported extesions: *.ipl, *.ipm"},
                 new Module {
                     ID = "ImarisReaderLeica",
                     Name = "Leica",
@@ -605,9 +605,9 @@ namespace ImarisSelectorLib
                     Description = "Supported extensions: *.rbinf"},
                 new Module {
                     ID = "ImarisReaderUniversalImaging",
-                    Name = "???",
+                    Name = "Molecular Devices Metamorph (series)",
                     Product = "File Reader",
-                    Description = "Supported extensions: *.???"},
+                    Description = "Supported extensions: *.std, *.nd"},
                 new Module {
                     ID = "ImarisReaderZeiss",
                     Name = "Zeiss AxioVision, CZI, LSM 310, 410, 510, 710",
