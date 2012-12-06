@@ -182,7 +182,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:ImarisSelectorLib, Version=0.9.5.0, Culture=neutral, processorArchitecture=AMD64"
+            "AssemblyAsmDisplayName" = "8:ImarisSelectorLib, Version=0.9.7.0, Culture=neutral, processorArchitecture=AMD64"
                 "ScatterAssemblies"
                 {
                     "_666C06C517C1DD7E0BB734058644EA5E"
@@ -347,15 +347,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ImarisSelector"
-        "ProductCode" = "8:{88A6D222-8E27-4758-B2A8-9317F3FDCC83}"
-        "PackageCode" = "8:{B54B78B9-045C-4CFD-B887-914C4433DB6B}"
+        "ProductCode" = "8:{9FB1D9CA-BAA3-4462-9FD6-BAF6D3A7C669}"
+        "PackageCode" = "8:{15DE98A5-9EE3-4C3A-AA6D-F7FC68929E9A}"
         "UpgradeCode" = "8:{31EFE1ED-5124-4CDA-992F-469E6D3DE479}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:0.9.6"
+        "ProductVersion" = "8:0.9.7"
         "Manufacturer" = "8:ETH Zurich"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -493,7 +493,7 @@
             "Target" = "8:_25851F99A2804A56AE91CE4600C05C72"
             "Folder" = "8:_2E79B2CE2BFB4274800ED41D7F78BB83"
             "WorkingFolder" = "8:_FACEC32D65B44EC0B43EACFA65DEC351"
-            "Icon" = "8:_8DE67195816B4235AB99667704381DE5"
+            "Icon" = "8:_7FAF1F47F7B5449BB9A4B8C6C346E998"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_782F2F6C6D6D41A3B2D0F944BE8FA8E2"
@@ -507,7 +507,7 @@
             "Target" = "8:_31EF24D79DC24EFEB7B0669D71189561"
             "Folder" = "8:_2E79B2CE2BFB4274800ED41D7F78BB83"
             "WorkingFolder" = "8:_FACEC32D65B44EC0B43EACFA65DEC351"
-            "Icon" = "8:_7FAF1F47F7B5449BB9A4B8C6C346E998"
+            "Icon" = "8:_8DE67195816B4235AB99667704381DE5"
             "Feature" = "8:"
             }
         }
