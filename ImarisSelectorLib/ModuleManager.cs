@@ -642,10 +642,10 @@ namespace ImarisSelectorLib
                 "3D and 4D Real-Time Interactive Image Visualization."); 
             this.m_ProductCatalog.Add(
                 "Imaris Measurement Pro",
-                "The Analysis and Quantification Engine.");
+                "The Analysis and Quantification Engine. Required for Statistics and manual surface editing.");
             this.m_ProductCatalog.Add(
                 "Imaris Track",
-                "Discover the Meaning of Motion.");
+                "Track objects over time.");
             this.m_ProductCatalog.Add(
                 "Imaris Coloc",
                 "Isolate, Visualize and Quantify Colocalized Regions.");
@@ -660,10 +660,10 @@ namespace ImarisSelectorLib
                 "Data Plotting (2D to 5D), Interpretation and Mining.");
             this.m_ProductCatalog.Add(
                 "Imaris XT",
-                "Access to the Open Source Community and XTensions. Freedom to customize.");
+                "Access to the Open Source Community and XTensions (FiJi and MATLAB).");
             this.m_ProductCatalog.Add(
                 "Imaris Scene Viewer",
-                "Viewer for Imaris Scenes.");
+                "Free-of-charge viewer for Imaris Scene files.");
             this.m_ProductCatalog.Add(
                 "Imaris Batch",
                 "Automated Image Processing.");
@@ -675,7 +675,7 @@ namespace ImarisSelectorLib
                 "Advanced and Fully Featured Image Deconvolution.");
             this.m_ProductCatalog.Add(
                 "File Reader",
-                "Proprietary File Readers.");
+                "Proprietary File Readers. Required to read almost any file format other than *.ims and regular *.tiff.");
 
         }
 
